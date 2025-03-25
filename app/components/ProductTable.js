@@ -10,6 +10,8 @@ export default function ProductTable({ products, onDelete }) {
         <tr>
           <th>Name</th>
           <th>Price</th>
+          <th>Description</th>
+
           <th>Category</th>
           <th>Actions</th>
         </tr>
@@ -19,6 +21,7 @@ export default function ProductTable({ products, onDelete }) {
           <tr key={product.id}>
             <td>{product.name}</td>
             <td>${product.price}</td>
+            <td>${product.description}</td>
             <td>{product.category?.name || "Uncategorized"}</td>
             <td>
               <Link
