@@ -22,7 +22,7 @@ export default function ProductTable({ products, onDelete }) {
             <td>{product.category?.name || "Uncategorized"}</td>
             <td>
               <Link
-                href={`/dashboard/products/edit/${product.id}`}
+                href={`/dashboard/products/${product.id}/edit/`}
                 className={styles.editButton}
               >
                 Edit
