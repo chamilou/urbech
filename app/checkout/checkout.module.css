@@ -1,0 +1,161 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.checkoutGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.cartSummary {
+  background: whitesmoke;
+  padding: 1.5rem;
+  border: 1px solid #1d1414;
+  border-radius: 10px;
+  color: #141212;
+}
+
+.cartSummary h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: #d3b3b3;
+}
+
+.cartItem {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.cartItem h3 {
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem;
+  color: #333;
+}
+
+.cartItem p {
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+}
+
+.totalCost {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eaeaea;
+}
+
+.totalCost h3 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.checkoutForm {
+  background: white;
+  padding: 1.5rem;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+}
+
+.checkoutForm h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.formGroup label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: black;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #f0c507;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #381d02;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 1rem;
+  background-color: #f2880f;
+  color: rgb(23, 10, 10);
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #b65c00;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .checkoutGrid {
+    grid-template-columns: 1fr;
+  }
+}
+/* Payment Method Dropdown */
+
+/* Textarea for Other Payment Method */
+.textarea {
+  width: 100%;
+  color: #333;
+  padding: 0.75rem;
+  border: 1px solid #141212;
+  border-radius: 5px;
+  font-size: 1rem;
+  resize: vertical; /* Allow vertical resizing */
+}
+/* Safari-specific styles */
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .select {
+      padding-right: 2.5rem; /* Add extra padding for the arrow */
+    }
+  }
+}
+/* Dropdown container */
+.select {
+  width: 100%;
+  padding: 0.75rem;
+  z-index: -1;
+  /*border: 1px solid #e31c1c;*/
+  border-radius: 10px;
+  font-size: 1.3rem;
+  background-color: rgb(25, 22, 22);
+  appearance: none; /* Remove default arrow */
+  -webkit-appearance: none; /* Remove default arrow in Safari */
+  -moz-appearance: none; /* Remove default arrow in Firefox */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 18px;
+}
+
+/* Dropdown hover and focus states */
+.select:hover,
+.select:focus {
+  border-color: #151413;
+  outline: none;
+}

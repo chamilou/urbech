@@ -15,10 +15,10 @@
 }
 
 .productCard {
-  border: 1px solid #ccc;
+  border: 1px solid #593103;
   border-radius: 8px;
   padding: 1rem;
-  background-color: #2c2e2e;
+  background-color: #513302;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -28,4 +28,17 @@
 
 .productCard p {
   margin: 0.5rem 0;
+}
+.addToCartButton {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background-color: #1f2937; /* Dark gray */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.addToCartButton:hover {
+  background-color: #111827; /* Darker on hover */
 }

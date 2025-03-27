@@ -264,7 +264,7 @@ export default function AddProductPage() {
           </button>
           <button
             type="submit"
-            className={styles.primaryButton}
+            className={styles.secondaryButton}
             disabled={isLoading}
           >
             {isLoading ? "Processing..." : "Add Product"}

@@ -15,11 +15,22 @@ export function AuthProvider({ children }) {
     setIsLoggedIn(false);
   };
 
-  const login = (token) => {
+  const login = ({ token }) => {
+    if (!token) {
+      console.error("No token provided to login()");
+      return;
+    }
+
     localStorage.setItem("token", token);
-    const { name, role, exp } = jwtDecode(token);
-    setUser({ name, role, exp });
-    setIsLoggedIn(true);
+
+    try {
+      const { name, role, exp } = jwtDecode(token);
+      setUser({ name, role, exp });
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.error("Failed to decode token:", error);
+      logout();
+    }
   };
 
   useEffect(() => {

@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import styles from "./Products.module.css";
+import { useCart } from "@/app/context/CartContext";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
+  const { addToCart } = useCart();
 
   // Fetch products from the API
   useEffect(() => {
@@ -35,6 +37,12 @@ export default function ProductsPage() {
             <p>${product.price}</p>
             <p>{product.description}</p>
             <p>Category: {product.category?.name || "Uncategorized"}</p>
+            <button
+              className={styles.addToCartButton}
+              onClick={() => addToCart(product)}
+            >
+              Add to Cart
+            </button>
           </div>
         ))}
       </div>

@@ -1,5 +1,4 @@
 /* src/app/dashboard/products/add */
-/* .module.css  */
 
 .container {
   max-width: 600px;
@@ -31,11 +30,13 @@
 .input {
   width: 100%;
   padding: 8px;
+  background-color: rgb(244, 218, 92);
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 .textarea {
+  background-color: rgb(244, 218, 92);
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
@@ -43,15 +44,23 @@
   resize: vertical;
 }
 
-.button {
-  background-color: #0070f3;
-  color: white;
+/* .button {
+  background-color: #217804;
+  color: rgb(21, 134, 1);
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+} */
+.cancelButton {
+  background-color: #ec301b;
+  color: rgb(21, 134, 1);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: large;
+  cursor: pointer;
 }
-
 .button:hover {
   background-color: #005bb5;
 }
@@ -63,9 +72,10 @@
 }
 
 .secondaryButton {
-  background: #6c757d;
+  background-color: #349102;
   color: white;
-  padding: 8px 16px;
+  font-size: large;
+  padding: 10px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
