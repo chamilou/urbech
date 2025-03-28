@@ -2,7 +2,6 @@
   --background: #f1b2b2;
   --foreground: #171717;
 }
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

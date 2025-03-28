@@ -40,6 +40,9 @@ export function CartProvider({ children }) {
       return [...prevCart, { ...recipe, quantity: 1 }];
     });
   };
+  const clearCart = () => {
+    setCart([]);
+  };
 
   const removeFromCart = (id) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
@@ -64,6 +67,7 @@ export function CartProvider({ children }) {
         addToCart,
         removeFromCart,
         updateQuantity,
+        clearCart,
         totalCost,
         itemCount,
       }}

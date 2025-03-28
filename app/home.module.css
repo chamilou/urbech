@@ -1,0 +1,47 @@
+.container {
+  padding: 1rem;
+}
+
+.sectionTitle {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+.carousel .slide img {
+  height: auto;
+  width: 100%;
+  object-fit: cover;
+  max-height: 300px; /* ✅ Adjust this value for your ideal height */
+  border-radius: 10px;
+}
+
+/* Optional: constrain the entire carousel */
+.carousel {
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.carouselContainer {
+  width: 80%;
+  aspect-ratio: 16 / 6; /* Lower ratio gives thinner banner */
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.carouselContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.carouselWrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}

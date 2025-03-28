@@ -1,18 +1,59 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useCart } from "@/context/CartContext";
+import { useCart } from "@/app/context/CartContext";
 import styles from "./checkout.module.css";
+import { useUser } from "../context/UserContext";
 
 export default function CheckoutPage() {
-  const { cart, totalCost } = useCart();
+  const { cart, totalCost, clearCart } = useCart();
   const [paymentMethod, setPaymentMethod] = useState("visa"); // Default payment method
-
+  const { user } = useUser();
+  const router = useRouter();
   const formattedTotalCost = totalCost ? totalCost.toFixed(2) : "0.00";
+  const [formData, setFormData] = useState({
+    name: "",
+    address: "",
+    city: "",
+    zip: "",
+  });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Order placed successfully using ${paymentMethod}!`);
+
+    if (!user) {
+      alert("You must be logged in to place an order.");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cart,
+          userId: user.id,
+          address: `${formData.address}, ${formData.city}, ${formData.zip}`,
+          total: totalCost,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || "Order failed");
+
+      clearCart();
+      setFormData({
+        name: "",
+        address: "",
+        city: "",
+        zip: "",
+      }); // Optional: clear cart from context
+      router.push("/order-success"); // Redirect to confirmation page
+    } catch (err) {
+      console.error("Checkout failed:", err);
+      alert("Checkout failed. Please try again.");
+    }
   };
 
   return (
@@ -39,19 +80,55 @@ export default function CheckoutPage() {
           <h2>Shipping Details</h2>
           <div className={styles.formGroup}>
             <label htmlFor="name">Full Name</label>
-            <input type="text" id="name" name="name" required />
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+            />
           </div>
           <div className={styles.formGroup}>
             <label htmlFor="address">Shipping Address</label>
-            <input type="text" id="address" name="address" required />
+            <input
+              type="text"
+              id="address"
+              name="address"
+              required
+              value={formData.address}
+              onChange={(e) =>
+                setFormData({ ...formData, address: e.target.value })
+              }
+            />
           </div>
           <div className={styles.formGroup}>
             <label htmlFor="city">City</label>
-            <input type="text" id="city" name="city" required />
+            <input
+              type="text"
+              id="city"
+              name="city"
+              required
+              value={formData.city}
+              onChange={(e) =>
+                setFormData({ ...formData, city: e.target.value })
+              }
+            />
           </div>
           <div className={styles.formGroup}>
             <label htmlFor="zip">ZIP Code</label>
-            <input type="text" id="zip" name="zip" required />
+            <input
+              type="text"
+              id="zip"
+              name="zip"
+              required
+              value={formData.zip}
+              onChange={(e) =>
+                setFormData({ ...formData, zip: e.target.value })
+              }
+            />
           </div>
 
           <h2>Payment Details</h2>

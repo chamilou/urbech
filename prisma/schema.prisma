@@ -21,7 +21,7 @@ model User {
   refreshToken String?
   role     Role    @default(USER)
   createdAt DateTime @default(now())
-
+  orders   Order[]
   @@map("users")
 }
 
@@ -30,10 +30,14 @@ model Product {
   name        String
   price       Float
   description String?
+  pricePerUnit Float?
+  articleNumber String? //internal SKU
+  isTopProduct Boolean @default(false)
+  isNewProduct Boolean @default(true)
   categoryId  String?  // Foreign key for category
   category    Category? @relation(fields: [categoryId], references: [id])
   createdAt   DateTime @default(now())
-
+  orderItems  OrderItem[]
   @@map("products")
 }
 
@@ -48,6 +52,31 @@ model Category {
 
   @@map("categories")
 }
+model Order {
+  id        String      @id @default(uuid())
+  userId    String
+  user      User        @relation(fields: [userId], references: [id])
+  address   String
+  total     Float
+  items     OrderItem[] // relation to OrderItem
+  createdAt DateTime    @default(now())
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Float
+
+  order     Order    @relation(fields: [orderId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}
+
 
 enum Role {
   USER

@@ -1,4 +1,5 @@
 .navbar {
+  position: relative; /* ✅ for absolute positioning of mobile menu */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,8 +11,8 @@
 .left,
 .right {
   display: flex;
-  gap: 1rem;
   align-items: center;
+  gap: 1rem;
 }
 
 .left a,
@@ -25,6 +26,23 @@
   text-decoration: underline;
 }
 
+.cartLink {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.cartCount {
+  background-color: crimson;
+  color: white;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 50%;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+}
+
 .button {
   background: none;
   border: none;
@@ -35,4 +53,47 @@
 
 .button:hover {
   text-decoration: underline;
+}
+
+/* Hamburger Icon */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  color: white;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .left {
+    display: none;
+  }
+
+  .right {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    display: none;
+    z-index: 1000;
+    width: 100%;
+  }
+
+  .right.active {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
+.hamburger {
+  transition: transform 0.3s ease;
+}
+
+.hamburger.open {
+  transform: rotate(90deg);
 }

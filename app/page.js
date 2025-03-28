@@ -1,14 +1,56 @@
-import styles from "./styles/Home.module.css";
+"use client";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
+import styles from "./home.module.css";
+import ProductCard from "./components/product/ProductCard";
+import { useEffect, useState } from "react";
 
-export default function Home() {
+export default function HomePage() {
+  const [newProducts, setNewProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchNewProducts = async () => {
+      const res = await fetch("/api/products");
+      const data = await res.json();
+      const recent = data.filter((p) => p.isNewProduct);
+      setNewProducts(recent);
+    };
+    fetchNewProducts();
+  }, []);
+
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}> All are working! 🎉</h1>
-      <p></p>
-      <div className={styles.container}> Banner</div>
-      <p></p>
-      <br></br>
-      <div className={styles.title}>Some Top products</div>
+    <div className={styles.carouselWrapper}>
+      <div className={styles.carouselContainer}>
+        <Carousel
+          showThumbs={false}
+          autoPlay
+          infiniteLoop
+          interval={4000}
+          showStatus={false}
+          showArrows={false}
+        >
+          <div>
+            <img src="/banner1.jpg" alt="Banner 1" />
+          </div>
+          <div>
+            <img src="/banner2.jpg" alt="Banner 2" />
+          </div>
+          <div>
+            <img src="/banner3.jpg" alt="Banner 3" />
+          </div>
+        </Carousel>
+      </div>
+
+      <h2 className={styles.sectionTitle}>New Arrivals</h2>
+      <div className={styles.productGrid}>
+        {newProducts.length > 0 ? (
+          newProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))
+        ) : (
+          <p>No new products available.</p>
+        )}
+      </div>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "./Login.module.css";
 import { useAuth } from "../context/AuthContext";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -38,7 +39,7 @@ export default function LoginPage() {
         token: data.token,
         ...data.user,
       });
-
+      toast.success("Logged in Successfully");
       // Optional: redirect based on role
       router.push(data.user.role === "ADMIN" ? "/dashboard" : "/");
     } catch (err) {

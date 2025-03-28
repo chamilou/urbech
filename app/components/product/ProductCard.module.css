@@ -123,21 +123,3 @@
   font-size: 0.85rem;
   color: #666;
 }
-.filters {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.searchInput {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  flex: 1;
-  min-width: 200px;
-}
-
-.categorySelect {
-  padding: 0.5rem;
-  font-size: 1rem;
-}

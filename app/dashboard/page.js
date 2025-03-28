@@ -23,7 +23,7 @@ export default function DashboardPage() {
           <p className={styles.cardDescription}>
             View and manage customer orders.
           </p>
-          <Link href="/dashboard/orders" className={styles.cardButton}>
+          <Link href="/orders" className={styles.cardButton}>
             Go to Orders
           </Link>
         </div>

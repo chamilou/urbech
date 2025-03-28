@@ -5,6 +5,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { UserProvider } from "./context/UserContext";
 import { CartProvider } from "./context/CartContext";
 import { getUserFromCookie } from "@/lib/getUserFromCookie";
+import ToasterProvider from "./components/ui/ToasterProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,7 @@ export default async function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ToasterProvider />
         <UserProvider initialUser={user}>
           <CartProvider>
             <AuthProvider>

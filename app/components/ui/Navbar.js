@@ -8,6 +8,7 @@ import { jwtDecode } from "jwt-decode";
 import { useUser } from "@/app/context/UserContext";
 import { useCart } from "@/app/context/CartContext";
 import { ShoppingCart } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const router = useRouter();
@@ -16,6 +17,7 @@ export default function Navbar() {
   const [username, setUsername] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const { itemCount } = useCart();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // Check token and update user info
 
@@ -82,13 +84,26 @@ export default function Navbar() {
         <Link href="/">Home</Link>
         <Link href="/products">Products</Link>
       </div>
-      <div className={styles.right}>
+      {/* 
+      <div className={styles.hamburger} onClick={() => setMenuOpen(!menuOpen)}>
+        {menuOpen ? <X size={24} /> : <Menu size={24} />}
+      </div> */}
+
+      <div
+        className={`${styles.hamburger} ${menuOpen ? styles.open : ""}`}
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        {menuOpen ? <X size={24} /> : <Menu size={24} />}
+      </div>
+
+      <div className={`${styles.right} ${menuOpen ? styles.active : ""}`}>
         <Link href="/cart" className={styles.cartLink}>
           <ShoppingCart className={styles.cartIcon} size={24} />
           {itemCount > 0 && (
             <span className={styles.cartCount}>{itemCount}</span>
           )}
         </Link>
+
         {isLoggedIn ? (
           <>
             {username && <span>Welcome, {username}</span>}
