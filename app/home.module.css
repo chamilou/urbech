@@ -18,7 +18,7 @@
   height: auto;
   width: 100%;
   object-fit: cover;
-  max-height: 300px; /* ✅ Adjust this value for your ideal height */
+  max-height: 300px; /* Adjust this value for your ideal height */
   border-radius: 10px;
 }
 
@@ -29,10 +29,12 @@
   overflow: hidden;
 }
 .carouselContainer {
-  width: 80%;
-  aspect-ratio: 16 / 6; /* Lower ratio gives thinner banner */
+  width: 80%; /* Or your preferred width */
+  margin: 0 auto; /* This centers the container */
+  aspect-ratio: 16 / 6;
   overflow: hidden;
   border-radius: 10px;
+  position: relative;
 }
 
 .carouselContainer img {
@@ -42,6 +44,10 @@
 }
 .carouselWrapper {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
+}
+.img {
+  width: 100px;
+  height: 370px;
 }

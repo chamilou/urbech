@@ -1,4 +1,4 @@
-// app/providers.js (create this file)
+// app/providers.js
 "use client";
 import { SessionProvider } from "next-auth/react";
 

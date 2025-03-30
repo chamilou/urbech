@@ -2,7 +2,8 @@
 "use client";
 import styles from "./ProductCard.module.css";
 import { useCart } from "@/app/context/CartContext";
-
+import Link from "next/link";
+import Image from "next/image";
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
 
@@ -15,7 +16,14 @@ export default function ProductCard({ product }) {
         </div>
         <button className={styles.wishlistButton}>&hearts;</button>
         <div className={styles.imagePlaceholder}>
-          <span>Image 4:3</span>
+          <Link key={product.id} href={`/products/${product.id}`}>
+            <Image
+              src={product.mainImage}
+              alt={product.name}
+              width={200}
+              height={150}
+            ></Image>
+          </Link>
         </div>
       </div>
 
@@ -24,17 +32,20 @@ export default function ProductCard({ product }) {
         <div className={styles.stars}>★★★★☆</div>
         <p className={styles.price}>${product.price.toFixed(2)}</p>
 
-        {product.pricePerKg && (
+        {product.pricePerUnit && (
           <p className={styles.pricePerKg}>
-            (${product.pricePerKg.toFixed(2)} / kg)
+            (${product.pricePerUnit.toFixed(2)} / kg)
           </p>
         )}
 
-        {product.articleNumber && (
-          <p className={styles.articleNumber}>
-            Art. No: {product.articleNumber}
-          </p>
-        )}
+        <p className={styles.articleNumber}>
+          Art.N°:
+          {product.articleNumber != null ? product.articleNumber : "No Data"}
+        </p>
+
+        <p className={styles.articleNumber}>
+          Stock: {product.stock != null ? product.stock : "No Data"}
+        </p>
 
         <p className={styles.delivery}>Delivery: 1–2 days</p>
 

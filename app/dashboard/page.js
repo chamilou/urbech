@@ -38,6 +38,26 @@ export default function DashboardPage() {
             Go to Users
           </Link>
         </div>
+        {/* Stock Card */}
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Stock Management</h2>
+          <p className={styles.cardDescription}>
+            Monitor product stock levels and restock alerts.
+          </p>
+          <Link href="/dashboard/stock" className={styles.cardButton}>
+            Go to Stock
+          </Link>
+        </div>
+        {/* Google Card */}
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Stock Management</h2>
+          <p className={styles.cardDescription}>
+            Monitor product stock levels and restock alerts.
+          </p>
+          <Link href="#" className={styles.cardButton}>
+            Go to Stock
+          </Link>
+        </div>
       </div>
     </div>
   );

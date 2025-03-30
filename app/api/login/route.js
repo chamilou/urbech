@@ -17,6 +17,12 @@ export async function POST(request) {
     if (!isPasswordValid) {
       return NextResponse.json({ error: "Invalid password" }, { status: 401 });
     }
+    // if (!user.isVerified) {
+    //   return NextResponse.json(
+    //     { error: "Please verify your email before logging in." },
+    //     { status: 403 }
+    //   );
+    // }
 
     const token = generateToken(user);
 

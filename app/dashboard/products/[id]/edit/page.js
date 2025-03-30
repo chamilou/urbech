@@ -12,6 +12,10 @@ export default function EditProductPage() {
     name: "",
     price: "",
     description: "",
+    stock: "",
+    // minStock: "",
+    // pricePerUnit: "",
+    // articleNumber: "",
   });
   const [loading, setLoading] = useState({
     fetch: true,
@@ -37,6 +41,10 @@ export default function EditProductPage() {
           name: data.name || "",
           price: data.price || "",
           description: data.description || "",
+          stock: data.stock || "",
+          // minStock: data.minStock || "",
+          // pricePerUnit: data.pricePerUnit || "",
+          // articleNumber: data.articleNumber || "",
         });
       } catch (err) {
         setError(err.message);
@@ -63,6 +71,10 @@ export default function EditProductPage() {
           name: product.name,
           price: parseFloat(product.price), // Ensure number format
           description: product.description,
+          stock: parseInt(product.stock),
+          // minStock: product.minStock,
+          // pricePerUnit: product.pricePerUnit,
+          // articleNumber: product.articleNumber,
         }),
       });
 
@@ -137,6 +149,17 @@ export default function EditProductPage() {
             value={product.description}
             onChange={handleChange}
             className={styles.textarea}
+            required
+            disabled={loading.submit}
+          />
+        </div>
+        <div>
+          <label>Stock</label>
+          <input
+            name="stock"
+            value={product.stock}
+            onChange={handleChange}
+            className={styles.input}
             required
             disabled={loading.submit}
           />

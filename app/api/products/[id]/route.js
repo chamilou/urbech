@@ -14,10 +14,14 @@ export async function PUT(request, { params }) {
         name: data.name,
         price: data.price,
         description: data.description,
+        stock: data.stock,
+        // minStock: data.minStock,
+        // pricePerUnit: data.pricePerUnit,
+        // articleNumber: data.articleNumber,
         // include other fields as needed
       },
     });
-
+    console.log("incoming data", data);
     return NextResponse.json(
       { message: "Product updated", product: updatedProduct },
       { status: 200 }
@@ -51,7 +55,7 @@ export async function DELETE(request, { params }) {
   }
 }
 export async function GET(request, { params }) {
-  const { id } = params;
+  const { id } = await params;
 
   try {
     const product = await prisma.product.findUnique({

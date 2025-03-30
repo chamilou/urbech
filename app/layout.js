@@ -6,6 +6,7 @@ import { UserProvider } from "./context/UserContext";
 import { CartProvider } from "./context/CartContext";
 import { getUserFromCookie } from "@/lib/getUserFromCookie";
 import ToasterProvider from "./components/ui/ToasterProvider";
+import Footer from "./components/footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +40,7 @@ export default async function RootLayout({ children }) {
             </AuthProvider>
           </CartProvider>
         </UserProvider>
+        <Footer />
       </body>
     </html>
   );

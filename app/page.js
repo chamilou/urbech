@@ -4,7 +4,7 @@ import { Carousel } from "react-responsive-carousel";
 import styles from "./home.module.css";
 import ProductCard from "./components/product/ProductCard";
 import { useEffect, useState } from "react";
-
+import Image from "next/image";
 export default function HomePage() {
   const [newProducts, setNewProducts] = useState([]);
 
@@ -30,13 +30,34 @@ export default function HomePage() {
           showArrows={false}
         >
           <div>
-            <img src="/banner1.jpg" alt="Banner 1" />
+            <Image
+              className={styles.img}
+              src="/banner1.jpg"
+              alt="Banner 1"
+              width={1000}
+              height={375}
+              style={{ width: "100%", height: "auto", objectFit: "cover" }}
+            />
           </div>
           <div>
-            <img src="/banner2.jpg" alt="Banner 2" />
+            <Image
+              className={styles.img}
+              src="/banner2.jpg"
+              alt="Banner 2"
+              width={1000}
+              height={375}
+              style={{ width: "100%", height: "auto", objectFit: "cover" }}
+            />
           </div>
           <div>
-            <img src="/banner3.jpg" alt="Banner 3" />
+            <Image
+              className={styles.img}
+              src="/banner3.jpg"
+              alt="Banner 3"
+              width={1000}
+              height={375}
+              style={{ width: "100%", height: "auto", objectFit: "cover" }}
+            />
           </div>
         </Carousel>
       </div>
