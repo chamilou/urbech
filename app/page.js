@@ -27,7 +27,7 @@ export default function HomePage() {
           infiniteLoop
           interval={4000}
           showStatus={false}
-          showArrows={false}
+          showArrows={true}
         >
           <div>
             <Image
@@ -36,7 +36,7 @@ export default function HomePage() {
               alt="Banner 1"
               width={1000}
               height={375}
-              style={{ width: "100%", height: "auto", objectFit: "cover" }}
+              style={{ width: "70%", height: "auto", objectFit: "fill" }}
             />
           </div>
           <div>
@@ -46,7 +46,7 @@ export default function HomePage() {
               alt="Banner 2"
               width={1000}
               height={375}
-              style={{ width: "100%", height: "auto", objectFit: "cover" }}
+              style={{ width: "70%", height: "auto", objectFit: "fill" }}
             />
           </div>
           <div>
@@ -56,7 +56,7 @@ export default function HomePage() {
               alt="Banner 3"
               width={1000}
               height={375}
-              style={{ width: "100%", height: "auto", objectFit: "cover" }}
+              style={{ width: "70%", height: "auto", objectFit: "fill" }}
             />
           </div>
         </Carousel>

@@ -1,6 +1,7 @@
 .navbar {
   width: 95%;
-  margin: 0 auto;
+  margin: 0 auto 2rem;
+
   position: relative; /* for absolute positioning of mobile menu */
   display: flex;
   justify-content: space-between;

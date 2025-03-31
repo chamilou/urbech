@@ -28,15 +28,15 @@ export default function CartPage() {
           <div className={styles.cartItems}>
             {cart.map((item) => (
               <div key={item.id} className={styles.cartItem}>
-                {/* <div className={styles.itemImage}>
+                <div className={styles.itemImage}>
                   <Image
-                    src={item.image_path}
+                    src={item.mainImage}
                     alt={item.name}
                     width={100}
                     height={100}
                     className={styles.image}
-                  />
-                </div> */}
+                  ></Image>
+                </div>
                 <div className={styles.itemDetails}>
                   <h2>{item.name}</h2>
                   <p>{item.description}</p>

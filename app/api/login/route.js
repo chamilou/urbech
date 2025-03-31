@@ -36,7 +36,7 @@ export async function POST(request) {
 
     const response = NextResponse.json({
       message: "Login successful",
-      token, // ✅ return token to frontend
+      token, //return token to frontend
       user: {
         id: user.id,
         name: user.name,

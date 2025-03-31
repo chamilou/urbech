@@ -29,14 +29,14 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased page-container`}
       >
         <ToasterProvider />
         <UserProvider initialUser={user}>
           <CartProvider>
             <AuthProvider>
               <Navbar />
-              {children}
+              <main>{children}</main>
             </AuthProvider>
           </CartProvider>
         </UserProvider>

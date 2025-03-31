@@ -21,3 +21,19 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-container > main {
+  flex: 1;
+}

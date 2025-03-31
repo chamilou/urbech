@@ -50,12 +50,30 @@ export default function DashboardPage() {
         </div>
         {/* Google Card */}
         <div className={styles.card}>
-          <h2 className={styles.cardTitle}>Stock Management</h2>
+          <h2 className={styles.cardTitle}>Google & SEO</h2>
           <p className={styles.cardDescription}>
-            Monitor product stock levels and restock alerts.
+            All related to google and SEO.
           </p>
           <Link href="#" className={styles.cardButton}>
-            Go to Stock
+            Go to SEO
+          </Link>
+        </div>
+        {/* Partners Management */}
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Partners Management</h2>
+          <p className={styles.cardDescription}>
+            All related to suppliers and partners.
+          </p>
+          <Link href="#" className={styles.cardButton}>
+            Go to Partners
+          </Link>
+        </div>
+        {/* Partners Management */}
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Settings</h2>
+          <p className={styles.cardDescription}>Settings for system.</p>
+          <Link href="#" className={styles.cardButton}>
+            Go to Settings
           </Link>
         </div>
       </div>

@@ -124,7 +124,7 @@ export default function AddProductPage() {
         !formData.name ||
         !formData.price ||
         !formData.categoryId ||
-        !formData.mainImage ||
+        !mainImage ||
         !formData.stock
       ) {
         throw new Error("Name, price, category, and main image are required");

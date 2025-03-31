@@ -31,6 +31,7 @@ export default function ProductDetailPage({ params }) {
 
   const handleAddToCart = () => {
     addToCart({ ...product, quantity }); // Add the product with selected quantity
+
     router.back(); // Navigate back to previous page
   };
 
@@ -43,8 +44,7 @@ export default function ProductDetailPage({ params }) {
         <div className={styles.productImageContainer}>
           <Image
             src={product.mainImage}
-            width={200}
-            height={100}
+            fill
             alt={product.name}
             className={styles.productImage}
             priority
