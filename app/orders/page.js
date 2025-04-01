@@ -29,25 +29,6 @@ export default function OrdersPage() {
       {orders.length === 0 ? (
         <p>You have no orders yet.</p>
       ) : (
-        // <ul className={styles.orderList}>
-        //   {orders.map((order) => (
-        //     <li key={order.id} className={styles.order}>
-        //       <h2>Order #{order.id.slice(0, 8)}</h2>
-        //       <p>Date: {new Date(order.createdAt).toLocaleString()}</p>
-        //       <p>Total: ${order.total.toFixed(2)}</p>
-        //       <h3>Items:</h3>
-        //       <ul>
-        //         {order.items.map((item) => (
-        //           <li key={item.id}>
-        //             {item.quantity} × Product #{item.productId} – $
-        //             {(item.price * item.quantity).toFixed(2)}
-        //           </li>
-        //         ))}
-        //       </ul>
-        //     </li>
-        //   ))}
-        // </ul>
-
         <ul className={styles.orderList}>
           {orders.map((order) => (
             <li key={order.id} className={styles.order}>

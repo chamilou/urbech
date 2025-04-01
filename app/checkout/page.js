@@ -18,6 +18,13 @@ export default function CheckoutPage() {
     zip: "",
   });
 
+  const [adminConfig, setAdminConfig] = useState({
+    headerTitle: "SuperStore Invoice",
+    footerNote: "We appreciate your business!",
+    bankDetails: "Bank: XYZ\nIBAN: 123456789\nSWIFT: XYZBANK123",
+    contactInfo: "Contact us at support@superstore.com",
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -26,34 +33,100 @@ export default function CheckoutPage() {
       return;
     }
 
+    const shippingAddress = `${formData.address}, ${formData.city}, ${formData.zip}`;
+
     try {
-      const res = await fetch("/api/checkout", {
+      // STEP 1: Save order to database
+      const orderRes = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           cart,
           userId: user.id,
-          address: `${formData.address}, ${formData.city}, ${formData.zip}`,
+          address: shippingAddress,
           total: totalCost,
         }),
       });
 
-      const data = await res.json();
+      const orderData = await orderRes.json();
 
-      if (!res.ok) throw new Error(data.error || "Order failed");
+      if (!orderRes.ok) {
+        throw new Error(orderData.error || "Order placement failed");
+      }
 
+      // STEP 2: Generate and download PDF invoice
+      const pdfRes = await fetch("/api/checkout/pdf", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cart,
+          user,
+          address: shippingAddress,
+          total: totalCost,
+          adminConfig,
+        }),
+      });
+
+      if (!pdfRes.ok) {
+        console.warn("PDF failed, continuing without it");
+      } else {
+        const blob = await pdfRes.blob();
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "order-summary.pdf";
+        link.click();
+      }
+
+      // Clear form and cart, redirect
       clearCart();
       setFormData({
         name: "",
         address: "",
         city: "",
         zip: "",
-      }); // Optional: clear cart from context
-      router.push("/order-success"); // Redirect to confirmation page
+      });
+
+      router.push("/order-success");
     } catch (err) {
       console.error("Checkout failed:", err);
       alert("Checkout failed. Please try again.");
     }
+  };
+
+  const downloadPDF = async () => {
+    const shippingAddress = `${formData.address}, ${formData.city}, ${formData.zip}`;
+
+    const res = await fetch("/api/checkout/pdf", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        cart,
+        user,
+        address: shippingAddress,
+        total: totalCost,
+        adminConfig,
+        // {
+        //   headerTitle: "SuperStore Invoice",
+        //   footerNote: "We appreciate your business!",
+        //   bankDetails: "Bank: XYZ\nIBAN: 123456789\nSWIFT: XYZBANK123",
+        //   contactInfo: "Contact us at support@superstore.com",
+        // },
+      }),
+    });
+
+    if (!res.ok) {
+      alert("Failed to generate PDF.");
+      return;
+    }
+
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "order-summary.pdf";
+    link.click();
   };
 
   return (
@@ -61,6 +134,44 @@ export default function CheckoutPage() {
       <h1 className={styles.title}>Checkout</h1>
       <div className={styles.checkoutGrid}>
         {/* Cart Summary */}
+        <div className={styles.formGroup}>
+          <label>Header Title</label>
+          <input
+            type="text"
+            value={adminConfig.headerTitle}
+            onChange={(e) =>
+              setAdminConfig({ ...adminConfig, headerTitle: e.target.value })
+            }
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label>Footer Note</label>
+          <textarea
+            value={adminConfig.footerNote}
+            onChange={(e) =>
+              setAdminConfig({ ...adminConfig, footerNote: e.target.value })
+            }
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label>Bank Details</label>
+          <textarea
+            value={adminConfig.bankDetails}
+            onChange={(e) =>
+              setAdminConfig({ ...adminConfig, bankDetails: e.target.value })
+            }
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label>Contact Info</label>
+          <textarea
+            value={adminConfig.contactInfo}
+            onChange={(e) =>
+              setAdminConfig({ ...adminConfig, contactInfo: e.target.value })
+            }
+          />
+        </div>
+
         <div className={styles.cartSummary}>
           <h2>Order Summary</h2>
           {cart.map((item) => (
@@ -73,6 +184,7 @@ export default function CheckoutPage() {
           <div className={styles.totalCost}>
             <h3>Total: ${formattedTotalCost}</h3>
           </div>
+          <button onClick={downloadPDF}>PDF</button>
         </div>
 
         {/* Checkout Form */}

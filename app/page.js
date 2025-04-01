@@ -34,9 +34,9 @@ export default function HomePage() {
               className={styles.img}
               src="/banner1.jpg"
               alt="Banner 1"
-              width={1000}
-              height={375}
-              style={{ width: "70%", height: "auto", objectFit: "fill" }}
+              width={1200}
+              height={175}
+              style={{ width: "80%", height: "auto", objectFit: "fill" }}
             />
           </div>
           <div>
@@ -44,9 +44,9 @@ export default function HomePage() {
               className={styles.img}
               src="/banner2.jpg"
               alt="Banner 2"
-              width={1000}
-              height={375}
-              style={{ width: "70%", height: "auto", objectFit: "fill" }}
+              width={1200}
+              height={175}
+              style={{ width: "80%", height: "auto", objectFit: "fill" }}
             />
           </div>
           <div>
@@ -54,9 +54,9 @@ export default function HomePage() {
               className={styles.img}
               src="/banner3.jpg"
               alt="Banner 3"
-              width={1000}
-              height={375}
-              style={{ width: "70%", height: "auto", objectFit: "fill" }}
+              width={1200}
+              height={175}
+              style={{ width: "80%", height: "auto", objectFit: "fill" }}
             />
           </div>
         </Carousel>
