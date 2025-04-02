@@ -14,52 +14,59 @@ export default function Navbar() {
   const router = useRouter();
   const { user } = useUser();
   const { isLoggedIn, logout } = useAuth(); // Ensure `logout` updates `isLoggedIn`
-  const [username, setUsername] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false);
+  // const [username, setUsername] = useState("");
+  // const [isAdmin, setIsAdmin] = useState(false);
+  const username = user?.name || "User";
+  const isAdmin = user?.role === "ADMIN";
+
   const { itemCount } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
 
   // Check token and update user info
 
-  useEffect(() => {
-    if (user) {
-      setUsername(user.name || "User");
-      setIsAdmin(user.role === "ADMIN");
-    } else {
-      setUsername("");
-      setIsAdmin(false);
-    }
-  }, [user]); // Just depend on user context
+  // useEffect(() => {
+  //   if (user) {
+  //     setUsername(user.name || "User");
+  //     setIsAdmin(user.role === "ADMIN");
+  //   } else {
+  //     setUsername("");
+  //     setIsAdmin(false);
+  //   }
+  // }, [user]); // Just depend on user context
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    document.body.classList.toggle("menu-open", menuOpen);
+  }, [menuOpen]);
 
-    // Early return if no token
-    if (!token?.trim()) {
-      setUsername("");
-      setIsAdmin(false);
-      return;
-    }
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
 
-    try {
-      const decoded = jwtDecode(token);
-      const { exp, name, role } = decoded;
+  //   // Early return if no token
+  //   if (!token?.trim()) {
+  //     setUsername("");
+  //     setIsAdmin(false);
+  //     return;
+  //   }
 
-      // Check expiration
-      if (Date.now() >= exp * 1000) {
-        localStorage.removeItem("token");
-        throw new Error("Token expired");
-      }
+  //   try {
+  //     const decoded = jwtDecode(token);
+  //     const { exp, name, role } = decoded;
 
-      setUsername(name || "User");
-      setIsAdmin(role === "ADMIN");
-    } catch (error) {
-      console.error("Token error:", error);
-      localStorage.removeItem("token");
-      setUsername("");
-      setIsAdmin(false);
-    }
-  }, [isLoggedIn]); // Sync with global auth state
+  //     // Check expiration
+  //     if (Date.now() >= exp * 1000) {
+  //       localStorage.removeItem("token");
+  //       throw new Error("Token expired");
+  //     }
+
+  //     setUsername(name || "User");
+  //     setIsAdmin(role === "ADMIN");
+  //   } catch (error) {
+  //     console.error("Token error:", error);
+  //     localStorage.removeItem("token");
+  //     setUsername("");
+  //     setIsAdmin(false);
+  //   }
+  // }, [isLoggedIn]); // Sync with global auth state
 
   // Handle logout
   const handleLogout = async () => {
@@ -77,6 +84,19 @@ export default function Navbar() {
       console.error("Error during logout:", error);
     }
   };
+  {
+    isLoggedIn ? (
+      <>
+        <span>Welcome, {username}</span>
+        {isAdmin && <Link href="/dashboard">Dashboard</Link>}
+        <button onClick={handleLogout} className={styles.button}>
+          Logout
+        </button>
+      </>
+    ) : (
+      <Link href="/login">Login</Link>
+    );
+  }
 
   return (
     <nav className={styles.navbar}>
@@ -84,17 +104,15 @@ export default function Navbar() {
         <Link href="/">Home</Link>
         <Link href="/products">Products</Link>
       </div>
-      {/* 
-      <div className={styles.hamburger} onClick={() => setMenuOpen(!menuOpen)}>
-        {menuOpen ? <X size={24} /> : <Menu size={24} />}
-      </div> */}
 
-      <div
+      <button
         className={`${styles.hamburger} ${menuOpen ? styles.open : ""}`}
         onClick={() => setMenuOpen(!menuOpen)}
+        aria-expanded={menuOpen}
+        aria-label="Toggle navigation menu"
       >
         {menuOpen ? <X size={24} /> : <Menu size={24} />}
-      </div>
+      </button>
 
       <div className={`${styles.right} ${menuOpen ? styles.active : ""}`}>
         <Link href="/cart" className={styles.cartLink}>

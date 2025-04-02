@@ -1,9 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "@/app/context/CartContext";
 import styles from "./checkout.module.css";
 import { useUser } from "../context/UserContext";
+import { downloadPDF } from "../utils/pdf/downloadPDF";
 
 export default function CheckoutPage() {
   const { cart, totalCost, clearCart } = useCart();
@@ -11,6 +12,7 @@ export default function CheckoutPage() {
   const { user } = useUser();
   const router = useRouter();
   const formattedTotalCost = totalCost ? totalCost.toFixed(2) : "0.00";
+  const [pdfLoading, setPdfLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     address: "",
@@ -24,6 +26,24 @@ export default function CheckoutPage() {
     bankDetails: "Bank: XYZ\nIBAN: 123456789\nSWIFT: XYZBANK123",
     contactInfo: "Contact us at support@superstore.com",
   });
+
+  const handlePDF = async () => {
+    setPdfLoading(true);
+    await downloadPDF({
+      cart,
+      user,
+      address: `${formData.address}, ${formData.city}, ${formData.zip}`,
+      total: totalCost,
+      adminConfig,
+      orderId: `PREVIEW-${Date.now()}`,
+    });
+    setPdfLoading(false);
+  };
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,29 +74,30 @@ export default function CheckoutPage() {
         throw new Error(orderData.error || "Order placement failed");
       }
 
-      // STEP 2: Generate and download PDF invoice
-      const pdfRes = await fetch("/api/checkout/pdf", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          cart,
-          user,
-          address: shippingAddress,
-          total: totalCost,
-          adminConfig,
-        }),
-      });
+      // // STEP 2: Generate and download PDF invoice
+      // const pdfRes = await fetch("/api/checkout/pdf", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({
+      //     cart,
+      //     user,
+      //     address: shippingAddress,
+      //     total: totalCost,
+      //     adminConfig,
+      //     orderId: orderData.id,
+      //   }),
+      // });
 
-      if (!pdfRes.ok) {
-        console.warn("PDF failed, continuing without it");
-      } else {
-        const blob = await pdfRes.blob();
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "order-summary.pdf";
-        link.click();
-      }
+      // if (!pdfRes.ok) {
+      //   console.warn("PDF failed, continuing without it");
+      // } else {
+      //   const blob = await pdfRes.blob();
+      //   const url = URL.createObjectURL(blob);
+      //   const link = document.createElement("a");
+      //   link.href = url;
+      //   link.download = `order-${orderData.id?.slice(0, 8) || "preview"}.pdf`;
+      //   link.click();
+      // }
 
       // Clear form and cart, redirect
       clearCart();
@@ -93,42 +114,6 @@ export default function CheckoutPage() {
       alert("Checkout failed. Please try again.");
     }
   };
-
-  const downloadPDF = async () => {
-    const shippingAddress = `${formData.address}, ${formData.city}, ${formData.zip}`;
-
-    const res = await fetch("/api/checkout/pdf", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        cart,
-        user,
-        address: shippingAddress,
-        total: totalCost,
-        adminConfig,
-        // {
-        //   headerTitle: "SuperStore Invoice",
-        //   footerNote: "We appreciate your business!",
-        //   bankDetails: "Bank: XYZ\nIBAN: 123456789\nSWIFT: XYZBANK123",
-        //   contactInfo: "Contact us at support@superstore.com",
-        // },
-      }),
-    });
-
-    if (!res.ok) {
-      alert("Failed to generate PDF.");
-      return;
-    }
-
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "order-summary.pdf";
-    link.click();
-  };
-
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Checkout</h1>
@@ -184,7 +169,9 @@ export default function CheckoutPage() {
           <div className={styles.totalCost}>
             <h3>Total: ${formattedTotalCost}</h3>
           </div>
-          <button onClick={downloadPDF}>PDF</button>
+          <button onClick={handlePDF} disabled={pdfLoading}>
+            {pdfLoading ? "Generating..." : "PDF"}
+          </button>
         </div>
 
         {/* Checkout Form */}

@@ -40,8 +40,9 @@ export default function LoginPage() {
         ...data.user,
       });
       toast.success("Logged in Successfully");
-      // Optional: redirect based on role
+
       router.push(data.user.role === "ADMIN" ? "/dashboard" : "/");
+      router.refresh();
     } catch (err) {
       setError(err.message || "An error occurred. Please try again.");
     } finally {

@@ -1,62 +1,75 @@
 .container {
-  max-width: 960px;
+  max-width: 1080px;
   margin: 2rem auto;
   padding: 1rem;
   font-family: system-ui, sans-serif;
 }
 
-.h1 {
+.title {
   font-size: 2rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   text-align: center;
+  color: #1f2937;
 }
 
 .error {
-  color: red;
+  color: crimson;
   text-align: center;
   margin-bottom: 1rem;
+  font-weight: bold;
 }
 
-.orderList {
-  list-style: none;
-  padding: 0;
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  background-color: #e39504; /* main background tone */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  border: 1px solid #eee;
+  padding: 0.75rem;
+  text-align: left;
+  vertical-align: top;
+  color: #1f2937;
+}
+
+.table th {
+  background-color: #f9f9f9;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.table tr:nth-child(even) {
+  background-color: #fdf3e0;
+}
+
+.table tr:hover {
+  background-color: #fde2b9;
+  transition: background-color 0.2s ease;
+}
+
+.itemsList {
+  list-style: disc;
+  padding-left: 1.2rem;
   margin: 0;
-}
-
-.order {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-  background-color: #fafafa;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-.order h2 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
   color: #333;
 }
 
-.order p {
-  margin: 0.25rem 0;
-  color: #555;
+.pdfButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #1f2937;
+  padding: 0.25rem;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.order h3 {
-  margin-top: 1rem;
-  font-weight: 600;
-  color: #222;
-}
-
-.order ul {
-  margin-top: 0.5rem;
-  padding-left: 1.2rem;
-  list-style: disc;
-}
-
-.order ul li {
-  font-size: 0.95rem;
-  color: #444;
-  margin-bottom: 0.25rem;
+.pdfButton:hover {
+  color: #e53935;
+  transform: scale(1.1);
 }

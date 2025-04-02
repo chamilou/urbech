@@ -25,15 +25,14 @@ export async function POST(request) {
     // }
 
     const token = generateToken(user);
-
-    // Optional: verify immediately
+    // Make sure SECRET_KEY is same as generateToken for testing after to remove whole try/catch
     try {
-      jwt.verify(token, process.env.SECRET_KEY); // Make sure SECRET_KEY is same as generateToken
+      jwt.verify(token, process.env.SECRET_KEY);
       console.log("Token is valid immediately after creation");
     } catch (err) {
       console.error("Token verification failed:", err);
     }
-
+    //remove up to here
     const response = NextResponse.json({
       message: "Login successful",
       token, //return token to frontend

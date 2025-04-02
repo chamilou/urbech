@@ -20,6 +20,7 @@ export default function CartPage() {
 
   return (
     <div className={styles.container}>
+      {user && <h3>Hello, {user.name.split(" ")[0]} 👋</h3>}
       <h1 className={styles.title}>Your Cart</h1>
       {cart.length === 0 ? (
         <p>Your cart is empty.</p>
@@ -79,7 +80,15 @@ export default function CartPage() {
                 Please <Link href="/login">log in</Link> to proceed to checkout.
               </p>
             ) : (
-              <Link href="/checkout" className={styles.checkoutButton}>
+              // <Link href="/checkout" className={styles.checkoutButton}>
+              //   Proceed to Checkout
+              // </Link>
+
+              <Link
+                href="/checkout"
+                className={styles.checkoutButton}
+                style={{ pointerEvents: totalCost === 0 ? "none" : "auto" }}
+              >
                 Proceed to Checkout
               </Link>
             )}

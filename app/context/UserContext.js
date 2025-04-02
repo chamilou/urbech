@@ -12,6 +12,7 @@ const UserContext = createContext();
 
 export function UserProvider({ children, initialUser = null }) {
   const [user, setUser] = useState(initialUser);
+  const [loading, setLoading] = useState(true);
 
   const login = useCallback((userData) => {
     setUser({
@@ -20,10 +21,12 @@ export function UserProvider({ children, initialUser = null }) {
       email: userData.email,
       role: userData.role,
     });
+    setLoading(false);
   }, []);
 
   const logout = useCallback(() => {
     setUser(null);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -42,6 +45,7 @@ export function UserProvider({ children, initialUser = null }) {
         logout();
       }
     }
+    setLoading(false);
   }, [logout]);
 
   useEffect(() => {
@@ -58,7 +62,7 @@ export function UserProvider({ children, initialUser = null }) {
   }, [logout]);
 
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <UserContext.Provider value={{ user, login, logout, loading }}>
       {children}
     </UserContext.Provider>
   );

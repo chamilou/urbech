@@ -9,6 +9,10 @@
   padding: 1rem;
   background-color: #333;
   color: white;
+  min-height: 60px;
+}
+body.menu-open {
+  overflow: hidden;
 }
 
 .left,
@@ -63,6 +67,8 @@
   display: none;
   cursor: pointer;
   color: white;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 }
 
 /* Mobile Styles */
@@ -80,13 +86,19 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 1rem;
-    display: none;
+    /* display: none; */
     z-index: 1000;
     width: 100%;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
   }
 
   .right.active {
-    display: flex;
+    /* display: flex; */
+    max-height: 300px; /* enough to show all items */
+    opacity: 1;
   }
 
   .hamburger {
