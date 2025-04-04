@@ -22,10 +22,10 @@ export default function OrdersPage() {
         price: item.price,
         quantity: item.quantity,
       })),
-      user: order.user || { name: "Customer", email: "unknown@example.com" },
+      user: order.User || { name: "Customer", email: "unknown@example.com" },
       address: order.address || "Not provided",
       total: order.total || 0,
-      orderId: order.id,
+      orderId: order.orderNumber,
       adminConfig: {
         headerTitle: "MyShop Invoice",
         footerNote: "Thanks for your order!",
@@ -61,16 +61,21 @@ export default function OrdersPage() {
           <thead>
             <tr>
               <th>Order #</th>
+              <th>Customer</th>
+              <th>City</th>
               <th>Date</th>
               <th>Total</th>
               <th>Items</th>
+              <th>Status</th>
               <th>PDF</th>
             </tr>
           </thead>
           <tbody>
             {orders.map((order) => (
               <tr key={order.id}>
-                <td>{order.id.slice(0, 8)}</td>
+                <td>{order.orderNumber}</td>
+                <td>{order.customer?.name || "Unknown Customer"}</td>
+                <td>{order.city}</td>
                 <td>{new Date(order.createdAt).toLocaleString()}</td>
                 <td>${order.total.toFixed(2)}</td>
                 <td>
@@ -83,6 +88,7 @@ export default function OrdersPage() {
                     ))}
                   </ul>
                 </td>
+                <td>{order.status}</td>
                 <td>
                   <button
                     className={styles.pdfButton}

@@ -1,0 +1,112 @@
+app
+├── Dockerfile
+├── about
+│   └── page.js
+├── api
+│   ├── addresses
+│   │   └── route.js
+│   ├── admin
+│   │   └── orders
+│   ├── categories
+│   │   └── route.js
+│   ├── checkout
+│   │   ├── pdf
+│   │   └── route.js
+│   ├── customers
+│   │   └── by-user
+│   ├── login
+│   │   └── route.js
+│   ├── logout
+│   │   └── route.js
+│   ├── orders
+│   │   └── route.js
+│   ├── partners
+│   │   └── route.js
+│   ├── products
+│   │   ├── [id]
+│   │   └── route.js
+│   ├── refresh
+│   │   └── route.js
+│   ├── register
+│   │   └── route.js
+│   ├── users
+│   │   ├── [id]
+│   │   └── route.js
+│   └── verify
+│       └── route.js
+├── cart
+│   ├── cart.module.css
+│   └── page.js
+├── checkout
+│   ├── checkout.module.css
+│   └── page.js
+├── components
+│   ├── ProductTable.js
+│   ├── UserTable.js
+│   ├── about
+│   │   ├── AboutComponent.js
+│   │   └── AboutComponent.module.css
+│   ├── footer
+│   │   ├── Footer.js
+│   │   ├── Footer.module.css
+│   │   ├── FooterCol1.js
+│   │   ├── FooterCol2.js
+│   │   ├── FooterCol3.js
+│   │   └── FooterCol4.js
+│   ├── partners
+│   │   ├── Partners.js
+│   │   └── Partners.module.css
+│   ├── product
+│   │   ├── ProductCard.js
+│   │   └── ProductCard.module.css
+│   └── ui
+│       ├── Navbar.js
+│       ├── Navbar.module.css
+│       └── ToasterProvider.js
+├── context
+│   ├── AuthContext.js
+│   ├── CartContext.js
+│   └── UserContext.js
+├── dashboard
+│   ├── dashboard.module.css
+│   ├── page.js
+│   ├── partners
+│   │   └── page.js
+│   ├── products
+│   │   ├── [id]
+│   │   ├── add
+│   │   ├── page.js
+│   │   └── products.module.css
+│   ├── stock
+│   │   ├── page.js
+│   │   └── stock.module.css
+│   └── users
+│       └── page.js
+├── favicon.ico
+├── globals.css
+├── home.module.css
+├── layout.js
+├── login
+│   ├── Login.module.css
+│   └── page.js
+├── order-success
+│   └── page.js
+├── orders
+│   ├── orders.module.css
+│   └── page.js
+├── page.js
+├── products
+│   ├── Products.module.css
+│   ├── [id]
+│   │   ├── ProductDetail.module.css
+│   │   └── page.js
+│   └── page.js
+├── providers.js
+├── register
+│   ├── Register.module.css
+│   └── page.js
+└── utils
+    └── pdf
+        └── downloadPDF.js
+
+46 directories, 64 files

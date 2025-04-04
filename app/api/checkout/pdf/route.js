@@ -6,7 +6,9 @@ import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 export async function POST(req) {
   const body = await req.json();
   const { cart, user, address, total, adminConfig = {}, orderId } = body;
-
+  console.log("orderId", orderId);
+  console.log("user", user);
+  console.log("cart", cart);
   const {
     headerTitle = "MyShop - Order Summary",
     footerNote = "Thank you for your purchase!",
@@ -32,14 +34,19 @@ export async function POST(req) {
 
   // === Header ===
   drawText(headerTitle, { size: 18 });
-  drawText(`Order Number: #${orderId?.slice(0, 8) || "N/A"}`, { size: 14 });
+  drawText(`Order Number: #${orderId || "N/A"}`, {
+    size: 14,
+  });
   y -= 10;
 
   y -= 10;
-  drawText(`Customer: ${user?.name}`);
-  drawText(`Email: ${user?.email}`);
-  drawText(`Shipping Address: ${address}`);
+  drawText(`Customer: ${user?.name || "Guest"}`, { size: 14 });
+  drawText(`Email: ${user?.email || "N/A"}`, { size: 14 });
   y -= 10;
+  drawText(`Date: ${new Date().toLocaleDateString()}`, { size: 14 });
+  y -= 10;
+  drawText(`Shipping Address:${address}`, { size: 14 });
+  y -= 5;
 
   // === Order Items ===
   drawText("Items Ordered:", { size: 14 });

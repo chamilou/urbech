@@ -64,7 +64,7 @@ export default function DashboardPage() {
           <p className={styles.cardDescription}>
             All related to suppliers and partners.
           </p>
-          <Link href="#" className={styles.cardButton}>
+          <Link href="/dashboard/partners" className={styles.cardButton}>
             Go to Partners
           </Link>
         </div>

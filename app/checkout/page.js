@@ -31,7 +31,7 @@ export default function CheckoutPage() {
     setPdfLoading(true);
     await downloadPDF({
       cart,
-      user,
+      user: '${user?.name || "Guest"}',
       address: `${formData.address}, ${formData.city}, ${formData.zip}`,
       total: totalCost,
       adminConfig,
@@ -53,67 +53,60 @@ export default function CheckoutPage() {
       return;
     }
 
-    const shippingAddress = `${formData.address}, ${formData.city}, ${formData.zip}`;
-
     try {
-      // STEP 1: Save order to database
+      // 1. Create shipping address first
+      const addressRes = await fetch("/api/addresses", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          street: formData.address,
+          city: formData.city,
+          zip: formData.zip,
+          country: "USA", // or allow user to choose
+        }),
+      });
+
+      const addressData = await addressRes.json();
+      if (!addressRes.ok)
+        throw new Error(addressData.error || "Failed to save address");
+
+      const addressId = addressData.id;
+
+      // 2. Fetch customerId linked to the user (assuming it exists)
+      const customerRes = await fetch(`/api/customers/by-user/${user.id}`);
+      const customerData = await customerRes.json();
+      if (!customerRes.ok)
+        throw new Error(customerData.error || "Customer not found");
+
+      const customerId = customerData.id;
+
+      // 3. Send order
+      //Get the orderData
+
       const orderRes = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           cart,
           userId: user.id,
-          address: shippingAddress,
+          customerId: customerId,
+          addressId,
           total: totalCost,
+          paymentMode: paymentMethod,
         }),
       });
 
       const orderData = await orderRes.json();
-
-      if (!orderRes.ok) {
-        throw new Error(orderData.error || "Order placement failed");
-      }
-
-      // // STEP 2: Generate and download PDF invoice
-      // const pdfRes = await fetch("/api/checkout/pdf", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({
-      //     cart,
-      //     user,
-      //     address: shippingAddress,
-      //     total: totalCost,
-      //     adminConfig,
-      //     orderId: orderData.id,
-      //   }),
-      // });
-
-      // if (!pdfRes.ok) {
-      //   console.warn("PDF failed, continuing without it");
-      // } else {
-      //   const blob = await pdfRes.blob();
-      //   const url = URL.createObjectURL(blob);
-      //   const link = document.createElement("a");
-      //   link.href = url;
-      //   link.download = `order-${orderData.id?.slice(0, 8) || "preview"}.pdf`;
-      //   link.click();
-      // }
-
-      // Clear form and cart, redirect
+      if (!orderRes.ok) throw new Error(orderData.error || "Order failed");
       clearCart();
-      setFormData({
-        name: "",
-        address: "",
-        city: "",
-        zip: "",
-      });
-
+      setFormData({ name: "", address: "", city: "", zip: "" });
       router.push("/order-success");
     } catch (err) {
       console.error("Checkout failed:", err);
       alert("Checkout failed. Please try again.");
     }
   };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Checkout</h1>

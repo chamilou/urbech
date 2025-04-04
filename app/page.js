@@ -5,6 +5,7 @@ import styles from "./home.module.css";
 import ProductCard from "./components/product/ProductCard";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+
 export default function HomePage() {
   const [newProducts, setNewProducts] = useState([]);
 

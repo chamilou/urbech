@@ -41,8 +41,9 @@ export default function LoginPage() {
       });
       toast.success("Logged in Successfully");
 
-      router.push(data.user.role === "ADMIN" ? "/dashboard" : "/");
-      router.refresh();
+      // router.push(data.user.role === "ADMIN" ? "/dashboard" : "/");
+      // router.refresh();
+      window.location.href = data.user.role === "ADMIN" ? "/dashboard" : "/";
     } catch (err) {
       setError(err.message || "An error occurred. Please try again.");
     } finally {
