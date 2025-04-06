@@ -128,9 +128,9 @@ export default function Navbar() {
             {username && <span>Welcome, {username}</span>}
             {/* {isAdmin && <Link href="/dashboard">Dashboard</Link>} */}
             {isAdmin ? (
-              <Link href="/dashboard">Dashboard</Link>
+              <Link href="/dashboard">Админ</Link>
             ) : (
-              <Link href="/profile">Profile</Link>
+              <Link href="/profile">Профиль</Link>
             )}
 
             <button onClick={handleLogout} className={styles.button}>

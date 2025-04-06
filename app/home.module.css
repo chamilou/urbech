@@ -28,7 +28,7 @@
   overflow: hidden;
 }
 .carouselContainer {
-  width: 80%; /* Or your preferred width */
+  width: 100%; /* Or your preferred width */
   margin: auto; /* This centers the container */
   aspect-ratio: 16/ 6;
   overflow: hidden;
