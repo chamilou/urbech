@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "./Login.module.css";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "@/app/context/AuthContext";
 import toast from "react-hot-toast";
 
 export default function LoginPage() {
@@ -53,7 +53,7 @@ export default function LoginPage() {
 
   return (
     <div className={styles.container}>
-      <h1>Login</h1>
+      <h1>"Login"</h1>
       {error && <p className={styles.error}>{error}</p>}
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.formGroup}>

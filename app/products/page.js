@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import styles from "./Products.module.css";
 import ProductCard from "@/app/components/product/ProductCard";
-import Link from "next/link";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -38,7 +37,7 @@ export default function ProductsPage() {
 
   return (
     <div className={styles.container}>
-      <h1>All products</h1>
+      <h1>Наша продукция</h1>
 
       <div className={styles.filters}>
         <input

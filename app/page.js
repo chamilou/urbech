@@ -2,7 +2,7 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import styles from "./home.module.css";
-import ProductCard from "./components/product/ProductCard";
+import ProductCard from "@/app/components/product/ProductCard";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
@@ -11,7 +11,7 @@ export default function HomePage() {
 
   useEffect(() => {
     const fetchNewProducts = async () => {
-      const res = await fetch("/api/products");
+      const res = await fetch("./api/products");
       const data = await res.json();
       const recent = data.filter((p) => p.isNewProduct);
       setNewProducts(recent);

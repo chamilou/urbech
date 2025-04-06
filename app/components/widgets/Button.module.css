@@ -1,0 +1,14 @@
+.link {
+  color: #2563eb; /* Tailwind's blue-600 */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #1d4ed8; /* Tailwind's blue-700 */
+  text-decoration: underline;
+}
+.active {
+  font-weight: bold;
+  text-decoration: underline;
+}

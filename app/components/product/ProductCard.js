@@ -4,6 +4,7 @@ import styles from "./ProductCard.module.css";
 import { useCart } from "@/app/context/CartContext";
 import Link from "next/link";
 import Image from "next/image";
+import ButtonLink from "../widgets/Button";
 
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
@@ -50,7 +51,7 @@ export default function ProductCard({ product }) {
           className={styles.addToCartButton}
           onClick={() => addToCart(product)}
         >
-          Add to Cart
+          В корзину
         </button>
       </div>
     </div>

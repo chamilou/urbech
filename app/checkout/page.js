@@ -3,21 +3,27 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useCart } from "@/app/context/CartContext";
 import styles from "./checkout.module.css";
-import { useUser } from "../context/UserContext";
-import { downloadPDF } from "../utils/pdf/downloadPDF";
+import { useUser } from "@/app/context/UserContext";
+import { downloadPDF } from "@/app/utils/pdf/downloadPDF";
 
 export default function CheckoutPage() {
   const { cart, totalCost, clearCart } = useCart();
-  const [paymentMethod, setPaymentMethod] = useState("visa"); // Default payment method
+  const [paymentMethod, setPaymentMethod] = useState("visa");
   const { user } = useUser();
   const router = useRouter();
   const formattedTotalCost = totalCost ? totalCost.toFixed(2) : "0.00";
   const [pdfLoading, setPdfLoading] = useState(false);
+  const [useDifferentInvoice, setUseDifferentInvoice] = useState(false);
+
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     address: "",
     city: "",
     zip: "",
+    invoiceAddress: "",
+    invoiceCity: "",
+    invoiceZip: "",
   });
 
   const [adminConfig, setAdminConfig] = useState({
@@ -27,22 +33,54 @@ export default function CheckoutPage() {
     contactInfo: "Contact us at support@superstore.com",
   });
 
-  const handlePDF = async () => {
-    setPdfLoading(true);
-    await downloadPDF({
-      cart,
-      user: '${user?.name || "Guest"}',
-      address: `${formData.address}, ${formData.city}, ${formData.zip}`,
-      total: totalCost,
-      adminConfig,
-      orderId: `PREVIEW-${Date.now()}`,
-    });
-    setPdfLoading(false);
-  };
+  // const handlePDF = async () => {
+  //   setPdfLoading(true);
+  //   await downloadPDF({
+  //     cart,
+  //     user: `${formData.firstName} ${formData.lastName}`,
+  //     address: `${formData.address}, ${formData.city}, ${formData.zip}`,
+  //     total: totalCost,
+  //     adminConfig,
+  //     orderId: `PREVIEW-${Date.now()}`,
+  //   });
+  //   setPdfLoading(false);
+  // };
+
   useEffect(() => {
     if (!user) {
       router.push("/login");
     }
+  }, [user]);
+
+  useEffect(() => {
+    const loadSavedAddress = async () => {
+      if (!user) return;
+
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch("/api/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const data = await res.json();
+        if (res.ok && data.address) {
+          setFormData((prev) => ({
+            ...prev,
+            firstName: data.name?.split(" ")[0] || "",
+            lastName: data.name?.split(" ").slice(1).join(" ") || "",
+            address: data.address.street || "",
+            city: data.address.city || "",
+            zip: data.address.zip || "",
+          }));
+        }
+      } catch (err) {
+        console.error("Failed to load saved address:", err);
+      }
+    };
+
+    loadSavedAddress();
   }, [user]);
 
   const handleSubmit = async (e) => {
@@ -54,7 +92,6 @@ export default function CheckoutPage() {
     }
 
     try {
-      // 1. Create shipping address first
       const addressRes = await fetch("/api/addresses", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -62,7 +99,7 @@ export default function CheckoutPage() {
           street: formData.address,
           city: formData.city,
           zip: formData.zip,
-          country: "USA", // or allow user to choose
+          country: "USA",
         }),
       });
 
@@ -72,16 +109,12 @@ export default function CheckoutPage() {
 
       const addressId = addressData.id;
 
-      // 2. Fetch customerId linked to the user (assuming it exists)
       const customerRes = await fetch(`/api/customers/by-user/${user.id}`);
       const customerData = await customerRes.json();
       if (!customerRes.ok)
         throw new Error(customerData.error || "Customer not found");
 
       const customerId = customerData.id;
-
-      // 3. Send order
-      //Get the orderData
 
       const orderRes = await fetch("/api/checkout", {
         method: "POST",
@@ -98,8 +131,18 @@ export default function CheckoutPage() {
 
       const orderData = await orderRes.json();
       if (!orderRes.ok) throw new Error(orderData.error || "Order failed");
+
       clearCart();
-      setFormData({ name: "", address: "", city: "", zip: "" });
+      setFormData({
+        firstName: "",
+        lastName: "",
+        address: "",
+        city: "",
+        zip: "",
+        invoiceAddress: "",
+        invoiceCity: "",
+        invoiceZip: "",
+      });
       router.push("/order-success");
     } catch (err) {
       console.error("Checkout failed:", err);
@@ -111,47 +154,20 @@ export default function CheckoutPage() {
     <div className={styles.container}>
       <h1 className={styles.title}>Checkout</h1>
       <div className={styles.checkoutGrid}>
-        {/* Cart Summary */}
-        <div className={styles.formGroup}>
-          <label>Header Title</label>
-          <input
-            type="text"
-            value={adminConfig.headerTitle}
-            onChange={(e) =>
-              setAdminConfig({ ...adminConfig, headerTitle: e.target.value })
-            }
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label>Footer Note</label>
-          <textarea
-            value={adminConfig.footerNote}
-            onChange={(e) =>
-              setAdminConfig({ ...adminConfig, footerNote: e.target.value })
-            }
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label>Bank Details</label>
-          <textarea
-            value={adminConfig.bankDetails}
-            onChange={(e) =>
-              setAdminConfig({ ...adminConfig, bankDetails: e.target.value })
-            }
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label>Contact Info</label>
-          <textarea
-            value={adminConfig.contactInfo}
-            onChange={(e) =>
-              setAdminConfig({ ...adminConfig, contactInfo: e.target.value })
-            }
-          />
-        </div>
-
+        {/* Order Summary */}
         <div className={styles.cartSummary}>
           <h2>Order Summary</h2>
+          <p>
+            <strong>Customer:</strong> {formData.firstName} {formData.lastName}
+          </p>
+          <p>
+            <strong>Shipping:</strong> {formData.address}, {formData.city},{" "}
+            {formData.zip}
+          </p>
+          <p>
+            <strong>Date:</strong> {new Date().toLocaleDateString()}
+          </p>
+
           {cart.map((item) => (
             <div key={item.id} className={styles.cartItem}>
               <h3>{item.name}</h3>
@@ -162,27 +178,81 @@ export default function CheckoutPage() {
           <div className={styles.totalCost}>
             <h3>Total: ${formattedTotalCost}</h3>
           </div>
-          <button onClick={handlePDF} disabled={pdfLoading}>
-            {pdfLoading ? "Generating..." : "PDF"}
-          </button>
+          {/* <button onClick={handlePDF} disabled={pdfLoading}>
+            {pdfLoading ? "Generating..." : "Download PDF"}
+          </button> */}
         </div>
+
+        {/* Admin Config */}
+        {/* <div className={styles.formGroup}>
+          <label>Header Title</label>
+          <input
+            type="text"
+            value={adminConfig.headerTitle}
+            onChange={(e) =>
+              setAdminConfig({ ...adminConfig, headerTitle: e.target.value })
+            }
+          />
+        </div> */}
+        {/* <div className={styles.formGroup}>
+          <label>Footer Note</label>
+          <textarea
+            value={adminConfig.footerNote}
+            onChange={(e) =>
+              setAdminConfig({ ...adminConfig, footerNote: e.target.value })
+            }
+          />
+        </div> */}
+        {/* <div className={styles.formGroup}>
+          <label>Bank Details</label>
+          <textarea
+            value={adminConfig.bankDetails}
+            onChange={(e) =>
+              setAdminConfig({ ...adminConfig, bankDetails: e.target.value })
+            }
+          />
+        </div> */}
+        {/* <div className={styles.formGroup}>
+          <label>Contact Info</label>
+          <textarea
+            value={adminConfig.contactInfo}
+            onChange={(e) =>
+              setAdminConfig({ ...adminConfig, contactInfo: e.target.value })
+            }
+          />
+        </div> */}
 
         {/* Checkout Form */}
         <form onSubmit={handleSubmit} className={styles.checkoutForm}>
           <h2>Shipping Details</h2>
           <div className={styles.formGroup}>
-            <label htmlFor="name">Full Name</label>
+            <label htmlFor="firstName">First Name</label>
             <input
               type="text"
-              id="name"
-              name="name"
+              id="firstName"
+              name="firstName"
               required
-              value={formData.name}
+              value={formData.firstName}
               onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
+                setFormData({ ...formData, firstName: e.target.value })
               }
             />
           </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="lastName">Last Name</label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              // required
+              value={formData.lastName}
+              onChange={(e) =>
+                setFormData({ ...formData, lastName: e.target.value })
+              }
+            />
+          </div>
+
           <div className={styles.formGroup}>
             <label htmlFor="address">Shipping Address</label>
             <input
@@ -196,6 +266,7 @@ export default function CheckoutPage() {
               }
             />
           </div>
+
           <div className={styles.formGroup}>
             <label htmlFor="city">City</label>
             <input
@@ -209,6 +280,7 @@ export default function CheckoutPage() {
               }
             />
           </div>
+
           <div className={styles.formGroup}>
             <label htmlFor="zip">ZIP Code</label>
             <input
@@ -223,12 +295,61 @@ export default function CheckoutPage() {
             />
           </div>
 
+          <div className={styles.formGroup}>
+            <input
+              type="checkbox"
+              id="useDifferentInvoice"
+              checked={useDifferentInvoice}
+              onChange={(e) => setUseDifferentInvoice(e.target.checked)}
+            />
+            <label htmlFor="useDifferentInvoice">
+              Use a different invoice address
+            </label>
+          </div>
+
+          {useDifferentInvoice && (
+            <>
+              <div className={styles.formGroup}>
+                <label htmlFor="invoiceAddress">Invoice Address</label>
+                <input
+                  type="text"
+                  id="invoiceAddress"
+                  value={formData.invoiceAddress}
+                  onChange={(e) =>
+                    setFormData({ ...formData, invoiceAddress: e.target.value })
+                  }
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="invoiceCity">Invoice City</label>
+                <input
+                  type="text"
+                  id="invoiceCity"
+                  value={formData.invoiceCity}
+                  onChange={(e) =>
+                    setFormData({ ...formData, invoiceCity: e.target.value })
+                  }
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="invoiceZip">Invoice ZIP</label>
+                <input
+                  type="text"
+                  id="invoiceZip"
+                  value={formData.invoiceZip}
+                  onChange={(e) =>
+                    setFormData({ ...formData, invoiceZip: e.target.value })
+                  }
+                />
+              </div>
+            </>
+          )}
+
           <h2>Payment Details</h2>
           <div className={styles.formGroup}>
             <label htmlFor="paymentMethod">Payment Method</label>
             <select
               id="paymentMethod"
-              name="paymentMethod"
               value={paymentMethod}
               onChange={(e) => setPaymentMethod(e.target.value)}
               required
@@ -241,61 +362,41 @@ export default function CheckoutPage() {
             </select>
           </div>
 
-          {/* Visa/MasterCard Fields */}
           {(paymentMethod === "visa" || paymentMethod === "mastercard") && (
             <>
               <div className={styles.formGroup}>
                 <label htmlFor="cardNumber">Card Number</label>
-                <input type="text" id="cardNumber" name="cardNumber" required />
+                <input type="text" id="cardNumber" required />
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="expiry">Expiry Date</label>
-                <input
-                  type="text"
-                  id="expiry"
-                  name="expiry"
-                  placeholder="MM/YY"
-                  required
-                />
+                <input type="text" id="expiry" placeholder="MM/YY" required />
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="cvv">CVV</label>
-                <input type="text" id="cvv" name="cvv" required />
+                <input type="text" id="cvv" required />
               </div>
             </>
           )}
 
-          {/* PayPal Field */}
           {paymentMethod === "paypal" && (
             <div className={styles.formGroup}>
               <label htmlFor="paypalEmail">PayPal Email</label>
-              <input
-                type="email"
-                id="paypalEmail"
-                name="paypalEmail"
-                required
-              />
+              <input type="email" id="paypalEmail" required />
             </div>
           )}
 
-          {/* Bill Field */}
           {paymentMethod === "bill" && (
             <div className={styles.formGroup}>
-              <label htmlFor="invoiceAddress">Invoice Address</label>
-              <input
-                type="text"
-                id="invoiceAddress"
-                name="invoiceAddress"
-                required
-              />
+              <label htmlFor="invoiceDetails">Invoice Address</label>
+              <input type="text" id="invoiceDetails" required />
             </div>
           )}
 
-          {/* Other Field */}
           {paymentMethod === "other" && (
             <div className={styles.formGroup}>
               <label htmlFor="otherDetails">Payment Details</label>
-              <textarea id="otherDetails" name="otherDetails" required />
+              <textarea id="otherDetails" required />
             </div>
           )}
 

@@ -80,16 +80,12 @@ export default function CartPage() {
                 Please <Link href="/login">log in</Link> to proceed to checkout.
               </p>
             ) : (
-              // <Link href="/checkout" className={styles.checkoutButton}>
-              //   Proceed to Checkout
-              // </Link>
-
               <Link
                 href="/checkout"
                 className={styles.checkoutButton}
                 style={{ pointerEvents: totalCost === 0 ? "none" : "auto" }}
               >
-                Proceed to Checkout
+                К оформлению
               </Link>
             )}
           </div>

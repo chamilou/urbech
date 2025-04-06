@@ -62,6 +62,7 @@ export default function OrdersPage() {
             <tr>
               <th>Order #</th>
               <th>Customer</th>
+              <th>Email</th>
               <th>City</th>
               <th>Date</th>
               <th>Total</th>
@@ -75,7 +76,8 @@ export default function OrdersPage() {
               <tr key={order.id}>
                 <td>{order.orderNumber}</td>
                 <td>{order.customer?.name || "Unknown Customer"}</td>
-                <td>{order.city}</td>
+                <td>{order.customer?.email || "Unknown"}</td>
+                <td>{order.customer?.city || "Unknown"}</td>
                 <td>{new Date(order.createdAt).toLocaleString()}</td>
                 <td>${order.total.toFixed(2)}</td>
                 <td>
