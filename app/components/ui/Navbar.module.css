@@ -1,4 +1,38 @@
 .navbar {
+  width: 100%; /* Changed from 95% to full width */
+  position: fixed; /* Changed from relative to fixed */
+  top: 0; /* Stick to the top */
+  left: 0;
+  z-index: 1000; /* Ensure navbar stays above other content */
+  margin: 0; /* Remove auto margins */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #333;
+  color: white;
+  min-height: 60px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: adds subtle shadow */
+}
+
+/* Add padding to body to prevent content from being hidden behind navbar */
+body {
+  padding-top: 80px; /* Adjust this value based on your navbar height */
+}
+
+/* Mobile menu adjustments */
+@media (max-width: 768px) {
+  .right {
+    top: 60px; /* Match this with your navbar height */
+  }
+
+  /* Adjust body padding for mobile if needed */
+  body {
+    padding-top: 60px;
+  }
+}
+
+.nav {
   width: 95%;
   margin: 0 auto 2rem;
 
@@ -70,13 +104,28 @@ body.menu-open {
   padding: 0.5rem;
   border-radius: 0.5rem;
 }
+/* Adjust body padding based on navbar height */
+:root {
+  --navbar-height: 60px;
+}
 
+body {
+  padding-top: var(--navbar-height);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --navbar-height: 50px;
+  }
+}
 /* Mobile Styles */
 @media (max-width: 768px) {
   .left {
     display: none;
   }
-
+  .navbar {
+    transition: all 0.3s ease;
+  }
   .right {
     position: absolute;
     top: 60px;
@@ -111,4 +160,9 @@ body.menu-open {
 
 .hamburger.open {
   transform: rotate(90deg);
+}
+.navbar {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
 }

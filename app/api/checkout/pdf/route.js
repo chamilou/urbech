@@ -37,13 +37,12 @@ export async function POST(req) {
   drawText(`Order Number: #${orderId || "N/A"}`, {
     size: 14,
   });
-  y -= 10;
+  y -= 100;
 
-  y -= 10;
   drawText(`Customer: ${user?.name || "Guest"}`, { size: 14 });
   drawText(`Email: ${user?.email || "N/A"}`, { size: 14 });
   y -= 10;
-  drawText(`Date: ${new Date().toLocaleDateString()}`, { size: 14 });
+  drawText(`Date: ${new Date().toLocaleDateString()}`, { x: 100, size: 14 });
   y -= 10;
   drawText(`Shipping Address:${address}`, { size: 14 });
   y -= 5;
@@ -66,8 +65,10 @@ export async function POST(req) {
 
   // === Footer ===
   drawText(footerNote, { size: 10 });
-  drawText(bankDetails, { size: 10 });
-  drawText(contactInfo, { size: 10 });
+  y -= 200;
+  drawText(bankDetails, { x: 300, size: 10 });
+  y -= 50;
+  drawText(contactInfo, { x: 300, size: 10 });
 
   const pdfBytes = await pdfDoc.save();
 

@@ -72,7 +72,7 @@ export default function DashboardPage() {
         <div className={styles.card}>
           <h2 className={styles.cardTitle}>Settings</h2>
           <p className={styles.cardDescription}>Settings for system.</p>
-          <Link href="#" className={styles.cardButton}>
+          <Link href="/dashboard/settings" className={styles.cardButton}>
             Go to Settings
           </Link>
         </div>

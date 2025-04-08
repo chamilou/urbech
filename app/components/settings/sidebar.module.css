@@ -1,0 +1,38 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  padding: 1rem;
+  margin: 0 auto;
+  background: #e39504; /* same as productCard background */
+  height: 100vh;
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.button {
+  display: block;
+  margin-bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  border-radius: 6px;
+  color: #1f2937; /* dark text like productInfo */
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.button:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #000;
+}
+
+.active {
+  font-weight: bold;
+  background-color: #fff;
+  color: #e39504;
+}

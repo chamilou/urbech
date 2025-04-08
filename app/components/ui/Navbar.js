@@ -69,6 +69,27 @@ export default function Navbar() {
   //   }
   // }, [isLoggedIn]); // Sync with global auth state
 
+  // In your Navbar component
+  useEffect(() => {
+    let lastScroll = 0;
+    const handleScroll = () => {
+      const currentScroll = window.scrollY;
+      const navbar = document.querySelector(`.${styles.navbar}`);
+
+      if (currentScroll > lastScroll && currentScroll > 100) {
+        // Scrolling down
+        navbar.style.transform = "translateY(-100%)";
+      } else {
+        // Scrolling up
+        navbar.style.transform = "translateY(0)";
+      }
+      lastScroll = currentScroll;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   // Handle logout
   const handleLogout = async () => {
     try {

@@ -2,178 +2,171 @@
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import styles from "./edit.module.css";
-import Link from "next/link";
+import ProductForm from "@/app/components/product/ProductForm";
 
 export default function EditProductPage() {
   const router = useRouter();
   const params = useParams();
   const productId = params.id;
-  const [product, setProduct] = useState({
+
+  const [formData, setFormData] = useState({
     name: "",
     price: "",
     description: "",
-    stock: "",
-    // minStock: "",
-    // pricePerUnit: "",
-    // articleNumber: "",
+    stock: "0",
+    minStock: "5",
+    pricePerUnit: "",
+    articleNumber: "",
+    weight: "",
+    length: "",
+    width: "",
+    height: "",
+    color: "",
+    isTopProduct: false,
+    isNewProduct: false,
+    categoryId: "",
   });
-  const [loading, setLoading] = useState({
-    fetch: true,
-    submit: false,
-  });
+
+  const [mainImage, setMainImage] = useState(null);
+  const [mainImagePreview, setMainImagePreview] = useState("");
+  const [additionalImages, setAdditionalImages] = useState([]);
+  const [additionalPreviews, setAdditionalPreviews] = useState([]);
+  const [newCategory, setNewCategory] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Fetch product data on load
+  // Fetch categories and product data
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchAll = async () => {
       try {
-        setLoading((prev) => ({ ...prev, fetch: true }));
-        setError("");
+        setIsLoading(true);
+        const [catRes, prodRes] = await Promise.all([
+          fetch("/api/categories"),
+          fetch(`/api/products/${productId}`),
+        ]);
 
-        const res = await fetch(`/api/products/${productId}`);
-        if (!res.ok) {
-          const errorData = await res.json();
-          throw new Error(errorData.message || "Failed to fetch product");
+        if (!catRes.ok || !prodRes.ok) {
+          throw new Error("Failed to fetch data");
         }
 
-        const data = await res.json();
-        setProduct({
-          name: data.name || "",
-          price: data.price || "",
-          description: data.description || "",
-          stock: data.stock || "",
-          // minStock: data.minStock || "",
-          // pricePerUnit: data.pricePerUnit || "",
-          // articleNumber: data.articleNumber || "",
+        const categoryData = await catRes.json();
+        const productData = await prodRes.json();
+
+        setCategories(categoryData);
+        setFormData({
+          ...productData,
+          price: productData.price?.toString() || "",
+          stock: productData.stock?.toString() || "",
+          minStock: productData.minStock?.toString() || "5",
         });
       } catch (err) {
         setError(err.message);
-        console.error("Fetch error:", err);
       } finally {
-        setLoading((prev) => ({ ...prev, fetch: false }));
+        setIsLoading(false);
       }
     };
 
-    fetchProduct();
+    fetchAll();
   }, [productId]);
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
+  const handleAddCategory = async (e) => {
     e.preventDefault();
-    setLoading((prev) => ({ ...prev, submit: true }));
-    setError("");
+    if (!newCategory.trim()) return;
 
     try {
-      const res = await fetch(`/api/products/${productId}`, {
-        method: "PUT",
+      setIsLoading(true);
+      const res = await fetch("/api/categories", {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: product.name,
-          price: parseFloat(product.price), // Ensure number format
-          description: product.description,
-          stock: parseInt(product.stock),
-          // minStock: product.minStock,
-          // pricePerUnit: product.pricePerUnit,
-          // articleNumber: product.articleNumber,
-        }),
+        body: JSON.stringify({ name: newCategory }),
       });
 
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || "Failed to update product");
-      }
+      if (!res.ok) throw new Error("Category creation failed");
 
-      router.push("/dashboard/products");
-      router.refresh(); // Ensure cache is cleared
+      const newCat = await res.json();
+      setCategories((prev) => [...prev, newCat]);
+      setFormData((prev) => ({ ...prev, categoryId: newCat.id }));
+      setNewCategory("");
     } catch (err) {
       setError(err.message);
-      console.error("Submission error:", err);
     } finally {
-      setLoading((prev) => ({ ...prev, submit: false }));
+      setIsLoading(false);
     }
   };
 
-  // Handle input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProduct((prev) => ({ ...prev, [name]: value }));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+
+    try {
+      const formDataToSend = new FormData();
+
+      // Append text fields
+      for (const key in formData) {
+        formDataToSend.append(key, formData[key]);
+      }
+
+      // Only send new main image if selected
+      if (mainImage) {
+        formDataToSend.append("mainImage", mainImage);
+      }
+
+      // Optional: include additional images if updated
+      additionalImages.forEach((img) => {
+        formDataToSend.append("additionalImages", img);
+      });
+
+      const res = await fetch(`/api/products/${productId}`, {
+        method: "PUT",
+        headers: {
+          // 👇 DO NOT manually set Content-Type here — browser handles it for FormData
+          // "Content-Type": "application/json",
+        },
+        body: formDataToSend,
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.message || "Failed to update product");
+      }
+      router.push("/dashboard/products");
+      router.refresh();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
-
-  if (loading.fetch) {
-    return <div className="container">Loading product data...</div>;
-  }
-
-  if (error && !loading.fetch) {
-    return (
-      <div className="container">
-        <p className="error">{error}</p>
-        <Link href="/products">Back to Products</Link>
-      </div>
-    );
-  }
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Edit Product</h1>
-      <form onSubmit={handleSubmit}>
-        <div className={styles.formGroup}>
-          <label className={styles.label}>Name</label>
-          <input
-            type="text"
-            name="name"
-            value={product.name}
-            onChange={handleChange}
-            className={styles.input}
-            required
-            disabled={loading.submit}
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label>Price</label>
-          <input
-            type="number"
-            name="price"
-            value={product.price}
-            onChange={handleChange}
-            className={styles.input}
-            required
-            step="0.01"
-            min="0"
-            disabled={loading.submit}
-          />
-        </div>
-        <div>
-          <label>Description</label>
-          <textarea
-            name="description"
-            value={product.description}
-            onChange={handleChange}
-            className={styles.textarea}
-            required
-            disabled={loading.submit}
-          />
-        </div>
-        <div>
-          <label>Stock</label>
-          <input
-            name="stock"
-            value={product.stock}
-            onChange={handleChange}
-            className={styles.input}
-            required
-            disabled={loading.submit}
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={loading.submit}
-          className={styles.button}
-        >
-          {loading.submit ? "Updating..." : "Update Product"}
-        </button>
-        {error && <p className="error">{error}</p>}
-      </form>
-      <Link href="/dashboard/products">Back to Products</Link>
+
+      {error && <p className={styles.error}>{error}</p>}
+
+      {!isLoading && (
+        <ProductForm
+          mode="edit"
+          formData={formData}
+          setFormData={setFormData}
+          onSubmit={handleSubmit}
+          mainImage={mainImage}
+          setMainImage={setMainImage}
+          mainImagePreview={mainImagePreview}
+          setMainImagePreview={setMainImagePreview}
+          additionalImages={additionalImages}
+          setAdditionalImages={setAdditionalImages}
+          additionalPreviews={additionalPreviews}
+          setAdditionalPreviews={setAdditionalPreviews}
+          newCategory={newCategory}
+          setNewCategory={setNewCategory}
+          handleAddCategory={handleAddCategory}
+          categories={categories}
+          isLoading={isLoading}
+        />
+      )}
     </div>
   );
 }
