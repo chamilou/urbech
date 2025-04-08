@@ -1,19 +1,41 @@
 .navbar {
-  width: 100%; /* Changed from 95% to full width */
+  width: 95%; /* Changed from 95% to full width */
   position: fixed; /* Changed from relative to fixed */
   top: 0; /* Stick to the top */
   left: 0;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
   z-index: 1000; /* Ensure navbar stays above other content */
-  margin: 0; /* Remove auto margins */
+  margin: 0 auto; /* Remove auto margins */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: #333;
+  background-color: #533904;
   color: white;
   min-height: 60px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: adds subtle shadow */
 }
+/* styles/navbar.module.css */
+/* .navbar {
+  background: linear-gradient(270deg, #ff8a00, #e52e71, #9b00ff);
+  background-size: 600% 600%;
+  animation: gradientAnimation 10s ease infinite;
+  color: white;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+} */
 
 /* Add padding to body to prevent content from being hidden behind navbar */
 body {
@@ -162,7 +184,4 @@ body {
   transform: rotate(90deg);
 }
 .navbar {
-  position: -webkit-sticky; /* Safari */
-  position: sticky;
-  top: 0;
 }
