@@ -1,18 +1,28 @@
 .container {
+  width: 100%;
+  max-width: 1200px; /* You can increase this */
+  margin: 0 auto;
+  padding: 1rem;
 }
 
 .sectionTitle {
-  margin-top: 2rem;
+  margin: 1rem auto;
+  text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
 }
 
 .productGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.5rem;
-  margin-top: 1rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem;
+  box-sizing: border-box;
 }
+
 .carousel .slide img {
   height: auto;
   width: 100%;
@@ -23,14 +33,13 @@
 
 /* Optional: constrain the entire carousel */
 .carousel {
-  margin-top: 2rem;
   border-radius: 10px;
   overflow: hidden;
 }
 .carouselContainer {
-  width: 100%; /* Or your preferred width */
-  margin: auto; /* This centers the container */
-  aspect-ratio: 16/ 6;
+  width: 80%; /* Or your preferred width */
+  margin: 0 auto; /* This centers the container */
+  aspect-ratio: 19/ 6;
   overflow: hidden;
   height: auto;
   border-radius: 10px;
@@ -38,16 +47,23 @@
 }
 
 .carouselContainer img {
-  width: 100%;
+  width: 100px;
   height: auto;
   object-fit: cover;
 }
 .carouselWrapper {
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
+  /* width: 1500px; */
+  /* max-width: 1600px; */
+  margin: 20px auto;
 }
 .img {
   width: 100%;
   height: auto;
+}
+@media (max-width: 600px) {
+  .productGrid {
+    grid-template-columns: 1fr;
+    padding: 0.5rem;
+    gap: 1rem;
+  }
 }

@@ -9,7 +9,15 @@
   width: 100%;
   transition: transform 0.2s, box-shadow 0.2s;
 }
+.imageWrapper {
+  position: relative;
+  aspect-ratio: 16 / 6;
+  background: #f9f9f9;
 
+  display: flex; /* ✨ new */
+  align-items: center; /* ✨ vertically center */
+  justify-content: center; /* ✨ horizontally center */
+}
 .productCard:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -17,12 +25,13 @@
 
 .imageWrapper {
   position: relative;
-  aspect-ratio: 4/ 4;
+  aspect-ratio: 16/ 6;
   background: #f9f9f9;
 }
 
 .productImage {
-  object-fit: none;
+  object-fit: contain;
+  aspect-ratio: 16/ 4;
   width: 100%;
   height: 100%;
 }

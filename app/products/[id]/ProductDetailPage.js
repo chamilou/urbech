@@ -56,7 +56,9 @@ export default function ProductDetailPage({ productId }) {
             <span className={styles.category}>{product.category.name}</span>
           )}
           <p className={styles.price}>${product.price.toFixed(2)}</p>
-          <p className={styles.description}>{product.description}</p>
+          <p className={styles.description}>
+            {product.description.slice(0, 30)}
+          </p>
 
           <div className={styles.actions}>
             <div className={styles.quantitySelector}>
@@ -90,7 +92,7 @@ export default function ProductDetailPage({ productId }) {
       </div>
 
       <div className={styles.additionalInfo}>
-        <h2 className={styles.additionalTitle}>Product Details</h2>
+        <h2 className={styles.additionalTitle}>{product.description}</h2>
         <table className={styles.specs}>
           <tbody>
             <tr>

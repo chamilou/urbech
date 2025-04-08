@@ -1,10 +1,10 @@
 .footer {
   width: 95%;
   margin: 20px auto;
-  background-color: #533904;
   color: #fff;
   padding: 2rem;
   text-align: center;
+  font-size: large;
 }
 
 .columns {

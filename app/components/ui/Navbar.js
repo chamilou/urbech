@@ -123,8 +123,12 @@ export default function Navbar() {
   return (
     <nav className={styles.navbar}>
       <div className={styles.left}>
-        <Link href="/">Домой</Link>
-        <Link href="/products">Продукты</Link>
+        <Link href="/" className={styles.button}>
+          Домой
+        </Link>
+        <Link href="/products" className={styles.button}>
+          Продукты
+        </Link>
       </div>
 
       <button
@@ -138,7 +142,7 @@ export default function Navbar() {
 
       <div className={`${styles.right} ${menuOpen ? styles.active : ""}`}>
         <Link href="/cart" className={styles.cartLink}>
-          <ShoppingCart className={styles.cartIcon} size={24} />
+          <ShoppingCart className={styles.cartIcon} size={28} />
           {itemCount > 0 && (
             <span className={styles.cartCount}>{itemCount}</span>
           )}

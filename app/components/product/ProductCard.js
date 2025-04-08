@@ -23,8 +23,9 @@ export default function ProductCard({ product }) {
           <Image
             src={product.mainImage}
             alt={product.name}
-            // width={500}
-            // height={350}
+            // width={250}
+            // height={200}
+            className={styles.productImage}
             fill
           />
         </Link>

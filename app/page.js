@@ -63,7 +63,7 @@ export default function HomePage() {
         </Carousel>
       </div>
 
-      <h2 className={styles.sectionTitle}>New Arrivals</h2>
+      <h2 className={styles.sectionTitle}>Свежее поступление</h2>
       <div className={styles.productGrid}>
         {newProducts.length > 0 ? (
           newProducts.map((product) => (
