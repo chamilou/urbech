@@ -1,6 +1,7 @@
 // src/components/ProductTable.js
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "@/app/dashboard/products/products.module.css";
 
 export default function ProductTable({ products, onDelete }) {
@@ -8,20 +9,30 @@ export default function ProductTable({ products, onDelete }) {
     <table className={styles.table}>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Description</th>
-
-          <th>Category</th>
-          <th>Actions</th>
+          <th>Изобр.</th>
+          <th>Наимениование</th>
+          <th>Цена</th>
+          <th>Описание</th>
+          <th>Остаток</th>
+          <th>Категория</th>
+          <th>###</th>
         </tr>
       </thead>
       <tbody>
         {products.map((product) => (
           <tr key={product.id}>
+            <td>
+              <Image
+                alt={product.description.slice(0, 10)}
+                src={product.mainImage}
+                width={30}
+                height={30}
+              ></Image>
+            </td>
             <td>{product.name}</td>
-            <td>${product.price}</td>
-            <td>${product.description}</td>
+            <td>{product.price}</td>
+            <td>{product.description.slice(0, 9)}</td>
+            <td>{product.stock}</td>
             <td>{product.category?.name || "Uncategorized"}</td>
             <td>
               <Link

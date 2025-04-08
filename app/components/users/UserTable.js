@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import styles from "@/app/dashboard/products/products.module.css";
+import styles from "./UserTable.module.css";
 
 export default function UserTable({ users, onDelete }) {
   return (

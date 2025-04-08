@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import UserTable from "@/app/components/UserTable";
+import UserTable from "@/app/components/users/UserTable";
 import styles from "@/app/dashboard/products/products.module.css";
 import toast from "react-hot-toast";
 export default function UsersPage() {

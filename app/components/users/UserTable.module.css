@@ -1,0 +1,61 @@
+/* src/styles/products.module.css */
+.container {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.addButton {
+  background: #0070f3;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.addButton:hover {
+  background: #005bb5;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #e6930d;
+}
+
+.editButton {
+  background: #4caf50;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  margin-right: 5px;
+  text-decoration: none;
+}
+
+.deleteButton {
+  background: #f44336;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+}

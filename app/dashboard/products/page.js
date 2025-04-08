@@ -2,7 +2,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import ProductTable from "@/app/components/ProductTable";
+import ProductTable from "@/app/components/product/ProductTable";
 import styles from "./products.module.css";
 
 export default function ProductsPage() {
