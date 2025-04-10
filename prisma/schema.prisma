@@ -137,6 +137,16 @@ model Partner {
   orders      Order[] // Orders handled by this partner
   createdAt   DateTime    @default(now())
 
+   //PDF/Invoice config fields
+   
+  headerTitle     String? // e.g. "Acme Inc. Invoice"
+  footerNote      String?
+  bankDetails     String?
+  contactInfo     String?
+  logoUrl         String?
+  paymentTerms    String?
+  returnPolicy    String?
+
   @@map("partners")
 }
 

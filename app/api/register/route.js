@@ -9,11 +9,11 @@ export async function POST(request) {
   const { name, email, password } = await request.json();
 
   const transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
+    host: "mail.infomaniak.com",
+    port: 465,
     auth: {
-      user: process.env.ETHEREAL_USER,
-      pass: process.env.ETHEREAL_PASS,
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
   });
 

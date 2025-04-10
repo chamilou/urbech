@@ -30,7 +30,7 @@ export async function downloadPDF({
     const link = document.createElement("a");
 
     link.href = url;
-    link.download = `order-${orderId.slice(0, 5) || "preview"}.pdf`;
+    link.download = `order-${orderId.slice(3, 10) || "preview"}.pdf`;
     link.click();
     URL.revokeObjectURL(url);
   } catch (error) {

@@ -33,19 +33,6 @@ export default function CheckoutPage() {
     contactInfo: "Contact us at support@superstore.com",
   });
 
-  // const handlePDF = async () => {
-  //   setPdfLoading(true);
-  //   await downloadPDF({
-  //     cart,
-  //     user: `${formData.firstName} ${formData.lastName}`,
-  //     address: `${formData.address}, ${formData.city}, ${formData.zip}`,
-  //     total: totalCost,
-  //     adminConfig,
-  //     orderId: `PREVIEW-${Date.now()}`,
-  //   });
-  //   setPdfLoading(false);
-  // };
-
   useEffect(() => {
     if (!user) {
       router.push("/login");
@@ -121,11 +108,14 @@ export default function CheckoutPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           cart,
+          user,
+          userEmail: user.email,
           userId: user.id,
           customerId: customerId,
           addressId,
           total: totalCost,
           paymentMode: paymentMethod,
+          partnerId,
         }),
       });
 
@@ -182,45 +172,6 @@ export default function CheckoutPage() {
             {pdfLoading ? "Generating..." : "Download PDF"}
           </button> */}
         </div>
-
-        {/* Admin Config */}
-        {/* <div className={styles.formGroup}>
-          <label>Header Title</label>
-          <input
-            type="text"
-            value={adminConfig.headerTitle}
-            onChange={(e) =>
-              setAdminConfig({ ...adminConfig, headerTitle: e.target.value })
-            }
-          />
-        </div> */}
-        {/* <div className={styles.formGroup}>
-          <label>Footer Note</label>
-          <textarea
-            value={adminConfig.footerNote}
-            onChange={(e) =>
-              setAdminConfig({ ...adminConfig, footerNote: e.target.value })
-            }
-          />
-        </div> */}
-        {/* <div className={styles.formGroup}>
-          <label>Bank Details</label>
-          <textarea
-            value={adminConfig.bankDetails}
-            onChange={(e) =>
-              setAdminConfig({ ...adminConfig, bankDetails: e.target.value })
-            }
-          />
-        </div> */}
-        {/* <div className={styles.formGroup}>
-          <label>Contact Info</label>
-          <textarea
-            value={adminConfig.contactInfo}
-            onChange={(e) =>
-              setAdminConfig({ ...adminConfig, contactInfo: e.target.value })
-            }
-          />
-        </div> */}
 
         {/* Checkout Form */}
         <form onSubmit={handleSubmit} className={styles.checkoutForm}>

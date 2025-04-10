@@ -2,19 +2,37 @@ export const runtime = "nodejs";
 
 import { NextResponse } from "next/server";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import prisma from "@/lib/db"; // make sure you import this
 
 export async function POST(req) {
   const body = await req.json();
-  const { cart, user, address, total, adminConfig = {}, orderId } = body;
-  console.log("orderId", orderId);
-  console.log("user", user);
-  console.log("cart", cart);
   const {
-    headerTitle = "MyShop - Order Summary",
-    footerNote = "Thank you for your purchase!",
-    bankDetails = "Bank: ABC Bank\nAccount Number: 123-456-789\nIBAN: XX00 1234 5678 9012 3456 78\nSWIFT: ABCDUSXX",
-    contactInfo = "Contact us at support@myshop.com",
-  } = adminConfig;
+    cart,
+    user,
+    address,
+    total,
+    partnerId,
+    adminConfig = {},
+    orderId,
+  } = body;
+
+  // Fetch partner from the database
+  let partnerConfig = null;
+
+  if (partnerId) {
+    partnerConfig = await prisma.partner.findUnique({
+      where: { id: partnerId },
+    });
+  }
+  console.log("partnerConfig", partnerConfig);
+  const {
+    headerTitle = partnerConfig?.headerTitle || "MyShop - Order Summary",
+    footerNote = partnerConfig?.footerNote || "Thank you for your purchase!",
+    bankDetails = partnerConfig?.bankDetails ||
+      "Bank: Default Bank\n IBAN: XX...\n SWIFT:DEFAULT123",
+    contactInfo = partnerConfig?.contactInfo ||
+      "Contact us at support@myshop.com",
+  } = adminConfig; // adminConfig overrides if provided
 
   const pdfDoc = await PDFDocument.create();
   const page = pdfDoc.addPage([595, 842]); // A4 size
@@ -71,6 +89,8 @@ export async function POST(req) {
   drawText(contactInfo, { x: 300, size: 10 });
 
   const pdfBytes = await pdfDoc.save();
+
+  // Send the PDF as an email attachment
 
   return new NextResponse(pdfBytes, {
     status: 200,

@@ -44,6 +44,7 @@ export async function GET(request) {
         },
         //User with capital comes from Order model could be change to user
         User: true, // optionally include user info for admin views
+        address: true, // optionally include address info
       },
       orderBy: { createdAt: "desc" },
     });

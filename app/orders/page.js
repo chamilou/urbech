@@ -16,6 +16,11 @@ export default function OrdersPage() {
       return;
     }
 
+    const addressObj = order.address;
+    const formattedAddress = addressObj
+      ? `${addressObj.street}, ${addressObj.city}, ${addressObj.zip}`
+      : "Not provided";
+
     downloadPDF({
       cart: order.items.map((item) => ({
         name: item.product?.name || "Unknown Product",
@@ -23,7 +28,7 @@ export default function OrdersPage() {
         quantity: item.quantity,
       })),
       user: order.User || { name: "Customer", email: "unknown@example.com" },
-      address: order.address || "Not provided",
+      address: formattedAddress,
       total: order.total || 0,
       orderId: order.orderNumber,
       adminConfig: {

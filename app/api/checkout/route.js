@@ -4,11 +4,32 @@
 
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
-
+import { sendOrderPdfEmail } from "@/lib/mailer";
+import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import { downloadPDF } from "@/app/utils/pdf/downloadPDF";
+import { generateOrderPdf } from "@/lib/pdf/generateOrderPdf";
 export async function POST(request) {
-  const { cart, userId, customerId, total, addressId, partnerId, paymentMode } =
-    await request.json();
-  console.log("cart", cart);
+  const body = await request.json();
+  const {
+    cart,
+    User,
+    userEmail,
+    userId,
+    customerId,
+    total,
+    addressId,
+    partnerId,
+    paymentMode,
+  } = body;
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+
+  for (const item of userId) {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+  }
 
   if (!cart || !userId || !customerId || !total) {
     return NextResponse.json(
@@ -69,6 +90,7 @@ export async function POST(request) {
           paymentMode: paymentMode || "CARD", // optional
           //User with capital comes from Order model could be changed in future to user
           User: { connect: { id: userId } },
+
           customer: { connect: { id: customerId } },
           address: addressId ? { connect: { id: addressId } } : undefined,
           partner: partnerId ? { connect: { id: partnerId } } : undefined,
@@ -84,6 +106,36 @@ export async function POST(request) {
     );
 
     const results = await prisma.$transaction(transactionQueries);
+    const order = results.at(-1);
+    const adminConfig = {
+      headerTitle: "SuperStore Invoice",
+      footerNote: "We appreciate your business!",
+      bankDetails: "Bank: XYZ\nIBAN: 123456789\nSWIFT: XYZBANK123",
+      contactInfo: "Contact us at support@superstore.com",
+    };
+    const addressData = await prisma.address.findUnique({
+      where: { id: addressId },
+    });
+    const fullAddress = addressData
+      ? `${addressData.street}, ${addressData.city}, ${addressData.zip}`
+      : "N/A";
+
+    const pdfBuffer = await generateOrderPdf({
+      cart,
+      user,
+      address: fullAddress,
+      total,
+      adminConfig, // your existing config
+      orderId: orderNumber,
+    });
+
+    await sendOrderPdfEmail({
+      to: user.email, // You might need to query the user's email if not passed
+      orderId: orderNumber,
+      pdfBuffer,
+    });
+
+    console.log("user", user);
 
     return NextResponse.json({
       message: "Order placed successfully",

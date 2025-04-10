@@ -40,8 +40,8 @@ export default function CartPage() {
                 </div>
                 <div className={styles.itemDetails}>
                   <h2>{item.name}</h2>
-                  <p>{item.description}</p>
-                  <p>Price: ${item.price.toFixed(2)}</p>
+                  <p>{item.description.slice(0, 6)}</p>
+                  <p>Цена: ${item.price.toFixed(2)}</p>
                   <div className={styles.quantityControl}>
                     <button
                       onClick={() =>
