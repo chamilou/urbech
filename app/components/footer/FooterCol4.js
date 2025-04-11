@@ -1,9 +1,9 @@
 export default function FooterColumn4() {
   return (
     <div>
-      <h4>Follow Us</h4>
+      <h3>Мы в соц сетях</h3>
       <ul>
-        <li>Facebook</li>
+        <li>Whatsapp</li>
         <li>Instagram</li>
         <li>Twitter</li>
       </ul>

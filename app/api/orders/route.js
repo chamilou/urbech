@@ -38,6 +38,7 @@ export async function GET(request) {
     const orders = await prisma.order.findMany({
       where: whereClause,
       include: {
+        partner: true,
         customer: true,
         items: {
           include: { product: true },

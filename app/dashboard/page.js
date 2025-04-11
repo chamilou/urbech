@@ -76,6 +76,14 @@ export default function DashboardPage() {
             Go to Settings
           </Link>
         </div>
+        {/* Emails MAnagement */}
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Emails</h2>
+          <p className={styles.cardDescription}>Settings for system.</p>
+          <Link href="/dashboard/emails" className={styles.cardButton}>
+            Go to Emails
+          </Link>
+        </div>
       </div>
     </div>
   );

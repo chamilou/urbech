@@ -8,7 +8,6 @@ import { downloadPDF } from "@/app/utils/pdf/downloadPDF";
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState("");
-
   const handleGeneratePDF = (order) => {
     if (!order || !Array.isArray(order.items)) {
       console.warn("Invalid order or missing items:", order);
@@ -20,24 +19,34 @@ export default function OrdersPage() {
     const formattedAddress = addressObj
       ? `${addressObj.street}, ${addressObj.city}, ${addressObj.zip}`
       : "Not provided";
+    const partnerId = order.partnerId;
+    console.log(partnerId); // Example partner ID, replace with actual logic
 
-    downloadPDF({
+    const pdfPayload = {
       cart: order.items.map((item) => ({
         name: item.product?.name || "Unknown Product",
         price: item.price,
         quantity: item.quantity,
       })),
-      user: order.User || { name: "Customer", email: "unknown@example.com" },
+      user: order.customer || {
+        name: "Customer",
+        email: "unknown@example.com",
+      },
       address: formattedAddress,
       total: order.total || 0,
       orderId: order.orderNumber,
+      partnerId: order.partnerId || "Unknown Partner",
       adminConfig: {
         headerTitle: "MyShop Invoice",
         footerNote: "Thanks for your order!",
         bankDetails: "Bank: ABC\nIBAN: XX\nSWIFT: ABC123",
         contactInfo: "support@myshop.com",
       },
-    });
+    };
+
+    console.log("📦 Sending PDF payload:", pdfPayload);
+
+    downloadPDF(pdfPayload);
   };
 
   useEffect(() => {
@@ -45,13 +54,13 @@ export default function OrdersPage() {
       try {
         const res = await fetch("/api/orders");
         const data = await res.json();
+        console.log("data", data);
         if (!res.ok) throw new Error(data.error || "Failed to fetch orders");
         setOrders(data.orders);
       } catch (err) {
         setError(err.message);
       }
     };
-
     fetchOrders();
   }, []);
 

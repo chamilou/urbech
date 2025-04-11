@@ -25,6 +25,7 @@ export async function POST(req) {
     });
   }
   console.log("partnerConfig", partnerConfig);
+  console.log("partnerId", partnerId);
   const {
     headerTitle = partnerConfig?.headerTitle || "MyShop - Order Summary",
     footerNote = partnerConfig?.footerNote || "Thank you for your purchase!",

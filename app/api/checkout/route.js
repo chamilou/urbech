@@ -10,17 +10,8 @@ import { downloadPDF } from "@/app/utils/pdf/downloadPDF";
 import { generateOrderPdf } from "@/lib/pdf/generateOrderPdf";
 export async function POST(request) {
   const body = await request.json();
-  const {
-    cart,
-    User,
-    userEmail,
-    userId,
-    customerId,
-    total,
-    addressId,
-    partnerId,
-    paymentMode,
-  } = body;
+  const { cart, userId, customerId, total, addressId, partnerId, paymentMode } =
+    body;
   const user = await prisma.user.findUnique({
     where: { id: userId },
   });
@@ -123,6 +114,7 @@ export async function POST(request) {
     const pdfBuffer = await generateOrderPdf({
       cart,
       user,
+      partnerId,
       address: fullAddress,
       total,
       adminConfig, // your existing config

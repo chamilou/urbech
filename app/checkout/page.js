@@ -102,6 +102,7 @@ export default function CheckoutPage() {
         throw new Error(customerData.error || "Customer not found");
 
       const customerId = customerData.id;
+      const partnerId = user?.partnerId || null;
 
       const orderRes = await fetch("/api/checkout", {
         method: "POST",
@@ -118,7 +119,7 @@ export default function CheckoutPage() {
           partnerId,
         }),
       });
-
+      console.log("Partner ID:", partnerId);
       const orderData = await orderRes.json();
       if (!orderRes.ok) throw new Error(orderData.error || "Order failed");
 

@@ -5,6 +5,7 @@ export async function downloadPDF({
   total,
   adminConfig,
   orderId,
+  partnerId,
 }) {
   try {
     const res = await fetch("/api/checkout/pdf", {
@@ -17,6 +18,7 @@ export async function downloadPDF({
         total,
         adminConfig,
         orderId,
+        partnerId,
       }),
     });
 

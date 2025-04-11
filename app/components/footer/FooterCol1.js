@@ -2,12 +2,13 @@ import Link from "next/link";
 export default function FooterColumn1() {
   return (
     <div>
-      <h4>Company</h4>
+      <h3>*Магазин*</h3>
       <ul>
         <li>
-          <Link href={"/about"}>About</Link>
+          <Link href={"/about"}>Про нас</Link>
         </li>
-        <li>Careers</li>
+        <Link href={"/colaboration"}>Сотрудничество</Link>
+
         <li>Blog</li>
       </ul>
     </div>

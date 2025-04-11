@@ -1,0 +1,346 @@
+/* CollaboratePage.module.css */
+.container {
+  font-family: "Georgia", serif;
+  color: #2a2b2a;
+  line-height: 1.6;
+}
+
+/* Hero Section */
+.hero {
+  background-color: #f8f4e3;
+  padding: 4rem 1rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  background-image: url("/images/nuts-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+  color: #2a2b2a;
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #8b5a2b;
+}
+
+.heroSubtitle {
+  font-size: 1.3rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Sections */
+.section {
+  padding: 3rem 1rem;
+}
+
+.sectionContent {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  color: #4a7c59;
+  position: relative;
+}
+
+.sectionTitle::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  background-color: #d4a59a;
+  margin: 1rem auto;
+}
+
+.darkSection {
+  background-color: #4a7c59;
+  color: white;
+}
+
+.darkSection .sectionTitle {
+  color: white;
+}
+
+/* Benefits Grid */
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.benefitCard {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.benefitIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.benefitTitle {
+  font-size: 1.3rem;
+  color: #8b5a2b;
+  margin-bottom: 1rem;
+}
+
+.darkSection .benefitTitle {
+  color: #f8f4e3;
+}
+
+.benefitText {
+  color: #666;
+}
+
+.darkSection .benefitText {
+  color: #eee;
+}
+
+/* Collaboration Types */
+.collaborationTypes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.typeCard {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  color: #2a2b2a;
+}
+
+.darkSection .typeCard {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.typeTitle {
+  font-size: 1.3rem;
+  color: #4a7c59;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #d4a59a;
+}
+
+.typeList {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.typeList li {
+  padding: 0.5rem 0;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.typeList li::before {
+  content: "•";
+  color: #8b5a2b;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.typeButton {
+  background-color: #8b5a2b;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.typeButton:hover {
+  background-color: #6b4a2b;
+}
+
+/* Contact Form */
+.contactForm {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.formInput,
+.formSelect,
+.formTextarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.formTextarea {
+  min-height: 120px;
+}
+
+.submitButton {
+  background-color: #4a7c59;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+  margin: 2rem auto 0;
+  min-width: 200px;
+}
+
+.submitButton:hover {
+  background-color: #3a6c49;
+}
+
+/* Partners Section */
+.partnersSection {
+  background-color: #f8f4e3;
+}
+
+.partnersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.partnerLogo {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 500;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.1rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.7rem;
+  }
+}
+.formContainer {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+  animation: fadeIn 0.3s ease;
+}
+
+.darkSection .formContainer {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+.formTitle {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #4a7c59;
+  text-align: center;
+}
+
+.darkSection .formTitle {
+  color: #f8f4e3;
+}
+
+/* Contact Form */
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formGroup {
+  margin-bottom: 0;
+}
+
+.formInput,
+.formTextarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 1rem;
+  background-color: white;
+}
+
+.darkSection .formInput,
+.darkSection .formTextarea {
+  background-color: white;
+  color: #2a2b2a;
+}
+
+.formTextarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.submitButton {
+  background-color: #4a7c59;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.submitButton:hover {
+  background-color: #3a6c49;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .collaborationTypes {
+    grid-template-columns: 1fr;
+  }
+
+  .typeCard {
+    padding: 1.5rem;
+  }
+}
