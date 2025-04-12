@@ -18,28 +18,7 @@
   min-height: 60px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: adds subtle shadow */
 }
-/* this make color dynamic gradient in Navbar */
-/* .navbar {
-  background: linear-gradient(270deg, #ff8a00, #e52e71, #9b00ff);
-  background-size: 600% 600%;
-  animation: gradientAnimation 10s ease infinite;
-  color: white;
-}
-
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-} */
-
-/* Add padding to body to prevent content from being hidden behind navbar */
-body {
+.body {
   padding-top: 80px; /* Adjust this value based on your navbar height */
 }
 
@@ -50,7 +29,7 @@ body {
   }
 
   /* Adjust body padding for mobile if needed */
-  body {
+  .body {
     padding-top: 60px;
   }
 }
@@ -68,7 +47,7 @@ body {
   color: white;
   min-height: 60px;
 }
-body.menu-open {
+.body.menu-open {
   overflow: hidden;
 }
 
@@ -129,16 +108,16 @@ body.menu-open {
   border-radius: 0.5rem;
 }
 /* Adjust body padding based on navbar height */
-:root {
+.root {
   --navbar-height: 60px;
 }
 
-body {
+.body {
   padding-top: var(--navbar-height);
 }
 
 @media (max-width: 768px) {
-  :root {
+  .root {
     --navbar-height: 50px;
   }
 }
@@ -184,6 +163,4 @@ body {
 
 .hamburger.open {
   transform: rotate(90deg);
-}
-.navbar {
 }

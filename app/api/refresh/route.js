@@ -1,13 +1,13 @@
 // app/api/refresh/route.js
 import prisma from "@/lib/db";
-import { verifyRefreshToken, generateAccessToken } from "@/lib/auth";
+import { verifyToken, generateToken } from "@/lib/auth";
 
 export async function POST(request) {
   const { refreshToken } = await request.json();
 
   try {
     // 1. Verify refresh token
-    const decoded = verifyRefreshToken(refreshToken);
+    const decoded = verifyToken(refreshToken);
 
     // 2. Check if token exists in DB
     const user = await prisma.user.findUnique({
@@ -22,7 +22,7 @@ export async function POST(request) {
     }
 
     // 3. Generate new access token
-    const newAccessToken = generateAccessToken(user);
+    const newAccessToken = generateToken(user);
 
     return Response.json({
       success: true,
