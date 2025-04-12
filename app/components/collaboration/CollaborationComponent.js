@@ -5,6 +5,30 @@ import styles from "./CollaborationComponent.module.css";
 
 export default function CollaborationComponent() {
   const [activeForm, setActiveForm] = useState(null);
+  const handleSubmit = async (e, type) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = {
+      name: form.name?.value || "",
+      email: form.email?.value || "",
+      phone: form.phone?.value || "",
+      message: form.message?.value || "",
+      type,
+    };
+
+    const res = await fetch("/api/collaboration", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (res.ok) {
+      alert("Заявка успешно отправлена!");
+      form.reset();
+    } else {
+      alert("Ошибка отправки. Попробуйте позже.");
+    }
+  };
 
   const toggleForm = (formType) => {
     setActiveForm(activeForm === formType ? null : formType);
@@ -44,6 +68,7 @@ export default function CollaborationComponent() {
                     <div className={styles.formGroup}>
                       <input
                         type="text"
+                        name="name"
                         placeholder="Ваше имя"
                         className={styles.formInput}
                       />
@@ -51,6 +76,7 @@ export default function CollaborationComponent() {
                     <div className={styles.formGroup}>
                       <input
                         type="email"
+                        name="email"
                         placeholder="Email"
                         className={styles.formInput}
                       />
@@ -58,11 +84,22 @@ export default function CollaborationComponent() {
                     <div className={styles.formGroup}>
                       <input
                         type="tel"
+                        name="phone"
                         placeholder="Телефон"
                         className={styles.formInput}
                       />
                     </div>
-                    <button type="submit" className={styles.submitButton}>
+
+                    <textarea
+                      name="message"
+                      placeholder="Опишите ваше предложение"
+                      rows="3"
+                    ></textarea>
+                    <button
+                      className={styles.contactForm}
+                      type="submit"
+                      onSubmit={(e) => handleSubmit(e, "private")}
+                    >
                       Отправить
                     </button>
                   </form>
@@ -91,6 +128,7 @@ export default function CollaborationComponent() {
                     <div className={styles.formGroup}>
                       <input
                         type="text"
+                        name=""
                         placeholder="Ваше имя"
                         className={styles.formInput}
                       />
@@ -98,6 +136,7 @@ export default function CollaborationComponent() {
                     <div className={styles.formGroup}>
                       <input
                         type="email"
+                        name="email"
                         placeholder="Email"
                         className={styles.formInput}
                       />
@@ -105,6 +144,7 @@ export default function CollaborationComponent() {
                     <div className={styles.formGroup}>
                       <input
                         type="tel"
+                        name="phone"
                         placeholder="Телефон"
                         className={styles.formInput}
                       />
@@ -116,7 +156,11 @@ export default function CollaborationComponent() {
                         rows="3"
                       ></textarea>
                     </div>
-                    <button type="submit" className={styles.submitButton}>
+                    <button
+                      className={styles.contactForm}
+                      onSubmit={(e) => handleSubmit(e, "shop")}
+                      type="submit"
+                    >
                       Отправить
                     </button>
                   </form>

@@ -16,7 +16,7 @@ export default function Footer() {
         <FooterCol4 />
       </div>
       <p className={styles.copy}>
-        © {new Date().getFullYear()} MyShop. All rights reserved.
+        © {new Date().getFullYear()} Urbech-Shop. All rights reserved.
       </p>
     </footer>
   );
