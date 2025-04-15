@@ -7,6 +7,7 @@ import { CartProvider } from "./context/CartContext";
 import { getUserFromCookie } from "@/lib/getUserFromCookie";
 import ToasterProvider from "./components/ui/ToasterProvider";
 import Footer from "./components/footer/Footer";
+import CookieConsent from "./components/cookies/CookieConsent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,8 @@ export const metadata = {
   },
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function RootLayout({ children }) {
   const user = await getUserFromCookie();
 
@@ -46,6 +49,7 @@ export default async function RootLayout({ children }) {
               <Navbar />
 
               <main>{children}</main>
+              <CookieConsent />
             </AuthProvider>
           </CartProvider>
         </UserProvider>

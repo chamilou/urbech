@@ -1,69 +1,102 @@
+/* ===== CSS Variables for Consistent Theming ===== */
+:root {
+  --max-width: 1200px;
+  --max-width-wide: 1400px;
+  --carousel-width: 80%;
+  --carousel-aspect: 19/6;
+  --carousel-img-max-height: 300px;
+  --grid-min-item: 260px;
+  --border-radius: 10px;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --font-size-sm: 1rem;
+  --font-size-md: 1.5rem;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Base Container Styles ===== */
 .container {
   width: 100%;
-  max-width: 1200px; /* You can increase this */
+  max-width: var(--max-width);
   margin: 0 auto;
-  padding: 1rem;
-}
-
-.sectionTitle {
-  margin: 1rem auto;
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.productGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 1rem;
+  padding: var(--spacing-md);
   box-sizing: border-box;
 }
 
-.carousel .slide img {
-  height: auto;
-  width: 100%;
-  object-fit: cover;
-  max-height: 300px; /* Adjust this value for your ideal height */
-  border-radius: 10px;
+/* ===== Typography ===== */
+.sectionTitle {
+  margin: var(--spacing-md) auto;
+  text-align: center;
+  font-size: var(--font-size-md);
+  font-weight: bold;
 }
 
-/* Optional: constrain the entire carousel */
-.carousel {
-  border-radius: 10px;
-  overflow: hidden;
+/* ===== Product Grid Layout ===== */
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min-item), 1fr));
+  gap: var(--spacing-lg);
+  width: 100%;
+  max-width: var(--max-width-wide);
+  margin: 0 auto;
+  padding: var(--spacing-md);
+  box-sizing: border-box;
 }
+
+/* ===== Carousel Styles ===== */
+.carouselWrapper {
+  margin: var(--spacing-xl) auto;
+}
+
 .carouselContainer {
-  width: 80%; /* Or your preferred width */
-  margin: 0 auto; /* This centers the container */
-  aspect-ratio: 19/ 6;
+  width: var(--carousel-width);
+  margin: 0 auto;
+  aspect-ratio: var(--carousel-aspect);
   overflow: hidden;
-  height: auto;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   position: relative;
 }
 
-.carouselContainer img {
-  width: 100px;
+.carousel {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.carousel .slide img {
+  width: 100%;
   height: auto;
   object-fit: cover;
+  max-height: var(--carousel-img-max-height);
+  border-radius: var(--border-radius);
 }
-.carouselWrapper {
-  /* width: 1500px; */
-  /* max-width: 1600px; */
-  margin: 20px auto;
-}
+
+/* ===== Image Styles ===== */
 .img {
   width: 100%;
   height: auto;
+  display: block;
 }
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 768px) {
+  :root {
+    --carousel-width: 90%;
+    --carousel-aspect: 16/9;
+    --grid-min-item: 200px;
+  }
+}
+
 @media (max-width: 600px) {
   .productGrid {
     grid-template-columns: 1fr;
-    padding: 0.5rem;
-    gap: 1rem;
+    padding: var(--spacing-sm);
+    gap: var(--spacing-md);
+  }
+  
+  .carouselContainer {
+    width: 95%;
+    aspect-ratio: 4/3;
   }
 }

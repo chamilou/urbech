@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Products.module.css";
 import ProductCard from "@/app/components/product/ProductCard";
-
+export const dynamic = "force-dynamic";
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");

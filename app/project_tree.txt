@@ -1,0 +1,158 @@
+.
+├── Dockerfile
+├── about
+│   └── page.js
+├── api
+│   ├── addresses
+│   │   └── route.js
+│   ├── admin
+│   │   └── orders
+│   │       └── route.js
+│   ├── categories
+│   │   └── route.js
+│   ├── checkout
+│   │   ├── pdf
+│   │   │   └── route.js
+│   │   └── route.js
+│   ├── customers
+│   │   └── by-user
+│   │       └── [userId]
+│   │           └── route.js
+│   ├── login
+│   │   └── route.js
+│   ├── logout
+│   │   └── route.js
+│   ├── orders
+│   │   └── route.js
+│   ├── partner-config
+│   │   └── route.js
+│   ├── partners
+│   │   └── route.js
+│   ├── products
+│   │   ├── [id]
+│   │   │   └── route.js
+│   │   └── route.js
+│   ├── profile
+│   │   └── route.js
+│   ├── refresh
+│   │   └── route.js
+│   ├── register
+│   │   └── route.js
+│   ├── users
+│   │   ├── [id]
+│   │   │   └── route.js
+│   │   └── route.js
+│   └── verify
+│       └── route.js
+├── cart
+│   ├── cart.module.css
+│   └── page.js
+├── checkout
+│   ├── checkout.module.css
+│   └── page.js
+├── colaboration
+│   └── page.js
+├── components
+│   ├── about
+│   │   ├── AboutComponent.js
+│   │   └── AboutComponent.module.css
+│   ├── collaboration
+│   │   ├── CollaborationComponent.js
+│   │   └── CollaborationComponent.module.css
+│   ├── footer
+│   │   ├── Footer.js
+│   │   ├── Footer.module.css
+│   │   ├── FooterCol1.js
+│   │   ├── FooterCol2.js
+│   │   ├── FooterCol3.js
+│   │   └── FooterCol4.js
+│   ├── partners
+│   │   ├── Partners.js
+│   │   └── Partners.module.css
+│   ├── product
+│   │   ├── ProductCard.js
+│   │   ├── ProductCard.module.css
+│   │   ├── ProductForm.js
+│   │   ├── ProductForm.module.css
+│   │   └── ProductTable.js
+│   ├── settings
+│   │   ├── SettingsPanel.js
+│   │   ├── SettingsSidebar.js
+│   │   ├── panel.module.css
+│   │   └── sidebar.module.css
+│   ├── social-media
+│   │   ├── SocMedia.js
+│   │   └── SocMedia.module.css
+│   ├── ui
+│   │   ├── Navbar.js
+│   │   ├── Navbar.module.css
+│   │   └── ToasterProvider.js
+│   ├── users
+│   │   ├── UserTable.js
+│   │   └── UserTable.module.css
+│   └── widgets
+│       ├── Button.js
+│       └── Button.module.css
+├── context
+│   ├── AuthContext.js
+│   ├── CartContext.js
+│   └── UserContext.js
+├── dashboard
+│   ├── dashboard.module.css
+│   ├── emails
+│   │   └── page.js
+│   ├── page.js
+│   ├── partners
+│   │   └── page.js
+│   ├── products
+│   │   ├── [id]
+│   │   │   └── edit
+│   │   │       ├── edit.module.css
+│   │   │       └── page.js
+│   │   ├── add
+│   │   │   ├── add.module.css
+│   │   │   └── page.js
+│   │   ├── page.js
+│   │   └── products.module.css
+│   ├── settings
+│   │   ├── SettingsPage.module.css
+│   │   └── page.js
+│   ├── stock
+│   │   ├── page.js
+│   │   └── stock.module.css
+│   └── users
+│       └── page.js
+├── favicon.ico
+├── globals.css
+├── home.module.css
+├── layout.js
+├── login
+│   ├── Login.module.css
+│   └── page.js
+├── order-success
+│   └── page.js
+├── orders
+│   ├── orders.module.css
+│   └── page.js
+├── page.js
+├── products
+│   ├── Products.module.css
+│   ├── [id]
+│   │   ├── ProductDetail.module.css
+│   │   ├── ProductDetailPage.js
+│   │   ├── metadata.js
+│   │   └── page.js
+│   └── page.js
+├── profile
+│   ├── Profile.module.css
+│   └── page.js
+├── project_tree.txt
+├── providers.js
+├── register
+│   ├── Register.module.css
+│   └── page.js
+└── utils
+    └── pdf
+        └── downloadPDF.js
+
+59 directories, 97 files

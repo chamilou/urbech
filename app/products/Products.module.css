@@ -1,72 +1,67 @@
+/* Variables for consistent theming */
+:root {
+  --primary-color: #e39504;
+  --primary-dark: #513302;
+  --primary-border: #593103;
+  --dark-bg: #1f2937;
+  --darker-bg: #111827;
+  --text-light: #f9f9f9;
+  --text-muted: #666;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.04);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+}
+
+/* Base container styles */
 .container {
   max-width: 1000px;
   margin: 0 auto;
   padding: 2rem;
 }
 
+/* Typography */
 .h1 {
   text-align: center;
   margin-bottom: 2rem;
 }
+
+/* Product Grid Layout */
 .productGrid {
-  display: flex;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1.5rem;
 }
 
+/* Product Card - Consolidated styles */
 .productCard {
-  border: 1px solid #593103;
-  border-radius: 8px;
-  padding: 1rem;
-  background-color: #513302;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.productCard h2 {
-  margin-top: 0;
-}
-
-.productCard p {
-  margin: 0.5rem 0;
-}
-.addToCartButton {
-  margin-top: 8px;
-  padding: 8px 12px;
-  background-color: #1f2937; /* Dark gray */
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.addToCartButton:hover {
-  background-color: #111827; /* Darker on hover */
-}
-.productCard {
-  border: 1px solid #eee;
-  border-radius: 10px;
-  overflow: hidden;
-  background: #e39504;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--primary-border);
+  border-radius: var(--radius-lg);
+  background: var(--primary-color);
+  box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
-  width: 300px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.productCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Image section */
 .imageWrapper {
   position: relative;
   aspect-ratio: 4 / 3;
-  background: #f9f9f9;
+  background: var(--text-light);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.imagePlaceholder {
-  font-size: 0.9rem;
-  color: #aaa;
-}
-
+/* Badges */
 .badges {
   position: absolute;
   top: 8px;
@@ -78,12 +73,14 @@
 .topBadge,
 .newBadge {
   background: crimson;
-  color: #fff;
+  color: var(--text-light);
   padding: 2px 6px;
   font-size: 0.7rem;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
+  font-weight: bold;
 }
 
+/* Wishlist button */
 .wishlistButton {
   position: absolute;
   top: 8px;
@@ -91,10 +88,16 @@
   background: none;
   border: none;
   font-size: 1.2rem;
-  color: #999;
+  color: var(--text-muted);
   cursor: pointer;
+  transition: color 0.2s ease;
 }
 
+.wishlistButton:hover {
+  color: crimson;
+}
+
+/* Product info section */
 .productInfo {
   padding: 1rem;
   display: flex;
@@ -105,6 +108,7 @@
 .name {
   font-size: 1.1rem;
   margin: 0;
+  color: var(--primary-dark);
 }
 
 .stars {
@@ -115,14 +119,36 @@
 .price {
   font-size: 1.2rem;
   font-weight: bold;
+  color: var(--primary-dark);
 }
 
 .pricePerKg,
 .articleNumber,
 .delivery {
   font-size: 0.85rem;
-  color: #666;
+  color: var(--text-muted);
 }
+
+/* Add to cart button */
+.addToCartButton {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: var(--dark-bg);
+  color: var(--text-light);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.addToCartButton:hover {
+  background-color: var(--darker-bg);
+}
+
+/* Filters section */
 .filters {
   display: flex;
   gap: 1rem;
@@ -130,14 +156,33 @@
   flex-wrap: wrap;
 }
 
-.searchInput {
+.searchInput,
+.categorySelect {
   padding: 0.5rem 1rem;
   font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: var(--radius-sm);
   flex: 1;
   min-width: 200px;
 }
 
 .categorySelect {
-  padding: 0.5rem;
-  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .productGrid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  
+  .filters {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }

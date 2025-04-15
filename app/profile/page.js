@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Profile.module.css";
 import { useRouter } from "next/navigation";
-
+export const dynamic = "force-dynamic";
 export default function ProfilePage() {
   const router = useRouter();
   const [formData, setFormData] = useState({

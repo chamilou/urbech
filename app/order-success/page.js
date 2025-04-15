@@ -1,4 +1,5 @@
 // app/order-success/page.js
+export const dynamic = "force-dynamic";
 export default function OrderSuccessPage() {
   return (
     <div style={{ padding: "2rem" }}>

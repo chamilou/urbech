@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import styles from "./stock.module.css";
+export const dynamic = "force-dynamic";
 
 export default function StockPage() {
   const [products, setProducts] = useState([]);

@@ -5,7 +5,7 @@ import Link from "next/link";
 import styles from "./Login.module.css";
 import { useAuth } from "@/app/context/AuthContext";
 import toast from "react-hot-toast";
-
+export const dynamic = "force-dynamic";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

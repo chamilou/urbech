@@ -1,4 +1,5 @@
 import Partners from "@/app/components/partners/Partners";
+export const dynamic = "force-dynamic";
 
 export default function PartnersPage() {
   return (

@@ -4,7 +4,7 @@ export default function AboutComponent() {
   return (
     <article className={styles.container}>
       <header className={styles.header}>
-        <h1 className={styles.title}>О нашей мастерской ореховых паст</h1>
+        <h1 className={styles.title}>О нашей кладовой ореховых паст</h1>
         <p className={styles.subtitle}>Настоящий вкус природы с 2018 года</p>
       </header>
 
