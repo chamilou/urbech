@@ -1,0 +1,33 @@
+/* wishlist.module.css */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+  }
+  
+  .emptyMessage {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .productsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .productsGrid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+  }

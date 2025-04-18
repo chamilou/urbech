@@ -1,6 +1,6 @@
 .navbar {
   width: 95%; /* Changed from 95% to full width */
-  position: fixed; /* Changed from relative to fixed */
+  position: fixed; 
   top: 0; /* Stick to the top */
   left: 0;
   position: -webkit-sticky; /* Safari */
@@ -16,7 +16,7 @@
 
   color: white;
   min-height: 60px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: adds subtle shadow */
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); Optional: adds subtle shadow */
 }
 .body {
   padding-top: 80px; /* Adjust this value based on your navbar height */
@@ -43,7 +43,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: #333;
+  /* background-color: #333; */
   color: white;
   min-height: 60px;
 }

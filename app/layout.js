@@ -8,6 +8,8 @@ import { getUserFromCookie } from "@/lib/getUserFromCookie";
 import ToasterProvider from "./components/ui/ToasterProvider";
 import Footer from "./components/footer/Footer";
 import CookieConsent from "./components/cookies/CookieConsent";
+import { Providers } from "./providers";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +44,8 @@ export default async function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased page-container`}
       >
+        
+
         <ToasterProvider />
         <UserProvider initialUser={user}>
           <CartProvider>
@@ -54,6 +58,7 @@ export default async function RootLayout({ children }) {
           </CartProvider>
         </UserProvider>
         <Footer />
+        
       </body>
     </html>
   );

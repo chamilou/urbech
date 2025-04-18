@@ -3,17 +3,19 @@
   margin: 20px auto;
   color: #fff;
   padding: 2rem;
-  text-align: center;
-  font-size: large;
+  text-align:center;
+  font-size: 1rem;
+  
+  
 }
-.li{
- list-style-type: none;
-}
+
 .columns {
+  list-style:none;  
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 2rem;
   margin-bottom: 1rem;
+  
 }
 
 .copy {
