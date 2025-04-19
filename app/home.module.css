@@ -1,20 +1,4 @@
 /* ===== CSS Variables for Consistent Theming ===== */
-:root {
-  --max-width: 1200px;
-  --max-width-wide: 1400px;
-  --carousel-width: 80%;
-  --carousel-aspect: 19/6;
-  --carousel-img-max-height: 300px;
-  --grid-min-item: 260px;
-  --border-radius: 10px;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --font-size-sm: 1rem;
-  --font-size-md: 1.5rem;
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 
 /* ===== Base Container Styles ===== */
 .container {
@@ -81,7 +65,7 @@
 
 /* ===== Responsive Adjustments ===== */
 @media (max-width: 768px) {
-  :root {
+  .root {
     --carousel-width: 90%;
     --carousel-aspect: 16/9;
     --grid-min-item: 200px;

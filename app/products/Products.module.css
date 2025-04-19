@@ -1,18 +1,4 @@
 /* Variables for consistent theming */
-:root {
-  --primary-color: #e39504;
-  --primary-dark: #513302;
-  --primary-border: #593103;
-  --dark-bg: #1f2937;
-  --darker-bg: #111827;
-  --text-light: #f9f9f9;
-  --text-muted: #666;
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.04);
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 10px;
-}
 
 /* Base container styles */
 .container {

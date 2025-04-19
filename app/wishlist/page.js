@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import prisma from "@/lib/prisma";
+import prisma from "@/lib/db";
 import ProductCard from "@/app/components/product/ProductCard";
 import styles from "./wishlist.module.css";
 
