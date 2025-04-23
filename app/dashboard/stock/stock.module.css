@@ -1,12 +1,28 @@
+/* Color Variables */
+
+
+/* Base Container */
 .container {
-  padding: 2rem;
+  margin: 2rem auto;
+  padding: 1rem;
+  max-width: 1200px;
+  font-family: system-ui, sans-serif;
 }
 
+/* Title Styles */
 .title {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  display: inline-block; /* Remove width constraint */
+  padding: 0.75rem 1.5rem;
+  font-size: 1.25rem;
+  color: var(--primary-light);
+  background-color: var(--primary);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  margin: 0 auto 2rem; /* Centered with margin */
 }
 
+/* Filters Section */
 .filters {
   display: flex;
   gap: 1rem;
@@ -19,26 +35,73 @@
   background: #ddd;
   cursor: pointer;
   border-radius: 4px;
+  transition: var(--transition);
+}
+
+.filters button:hover {
+  background: #ccc;
 }
 
 .filters .active {
-  background: #222;
-  color: #fff;
+  background: var(--text-dark);
+  color: var(--text-light);
 }
 
+/* Table Styles */
 .table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
+  font-size: 0.95rem;
 }
 
 .table th,
 .table td {
   padding: 0.75rem 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid #eee;
   text-align: left;
 }
 
 .table th {
-  background-color: #d89715;
+  background-color: var(--text-dark);
+
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+}
+
+/* Zebra Striping */
+.table tr:nth-child(even) {
+  background-color: var(--text-dark);
+}
+
+/* Hover Effects */
+.table tr {
+  transition: var(--transition);
+}
+
+.table tr:hover {
+  background-color: var(--primary-light);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 0.5rem;
+    margin: 1rem auto;
+  }
+  
+  .filters {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .table {
+    font-size: 0.85rem;
+  }
+  
+  .table th, 
+  .table td {
+    padding: 0.5rem;
+  }
 }

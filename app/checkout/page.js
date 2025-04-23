@@ -4,10 +4,12 @@ import { useState, useEffect } from "react";
 import { useCart } from "@/app/context/CartContext";
 import styles from "./checkout.module.css";
 import { useUser } from "@/app/context/UserContext";
+import {toast} from "react-hot-toast"
 import { downloadPDF } from "@/app/utils/pdf/downloadPDF";
 
 export default function CheckoutPage() {
   const { cart, totalCost, clearCart } = useCart();
+  
   const [paymentMethod, setPaymentMethod] = useState("visa");
   const { user } = useUser();
   const router = useRouter();
@@ -134,6 +136,7 @@ export default function CheckoutPage() {
         invoiceCity: "",
         invoiceZip: "",
       });
+      
       router.push("/order-success");
     } catch (err) {
       console.error("Checkout failed:", err);
@@ -353,7 +356,7 @@ export default function CheckoutPage() {
           )}
 
           <button type="submit" className={styles.submitButton}>
-            Place Order
+            Заказать
           </button>
         </form>
       </div>

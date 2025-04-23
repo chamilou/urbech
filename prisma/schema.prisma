@@ -28,11 +28,21 @@ model User {
   isVerified       Boolean    @default(false)
   orders           Order[]
   Customer         Customer[]
+  passwordResetTokens PasswordResetToken[]
+  passwordChangedAt DateTime?
   wishlistItems Product[] @relation("UserWishlist")
 
   @@map("users")
 }
+model PasswordResetToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  expiresAt DateTime
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@map("password_reset_tokens")
+}
 model Address {
   id    String  @id @default(uuid())
   label String? // Optional: "Shipping", "Billing", "HQ"

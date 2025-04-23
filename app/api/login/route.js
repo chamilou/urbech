@@ -18,7 +18,7 @@ export async function POST(request) {
       return NextResponse.json({ error: "Invalid password" }, { status: 401 });
     }
 
-    // ✅ Auto-create customer if not ADMIN
+    //Auto-create customer if not ADMIN
     if (user.role !== "ADMIN") {
       const existingCustomer = await prisma.customer.findFirst({
         where: { userId: user.id },

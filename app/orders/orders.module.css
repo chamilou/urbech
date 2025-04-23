@@ -1,74 +1,107 @@
+
+/* Base Container */
 .container {
   margin: 2rem auto;
   padding: 1rem;
+  max-width: 1200px;
   font-family: system-ui, sans-serif;
 }
 
+/* Title Styles */
 .title {
-  font-size: 2rem;
-  margin-bottom: 2rem;
+  display: inline-block; /* Remove width constraint */
+  padding: 0.75rem 1.5rem;
+  font-size: 1.25rem;
+  color: var(--primary-light);
+  background-color: var(--primary);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
   text-align: center;
-  color: #1f2937;
+  margin: 0 auto 2rem; /* Centered with margin */
 }
 
+/* Error Message */
 .error {
-  color: crimson;
+  color: var(--error);
   text-align: center;
   margin-bottom: 1rem;
-  font-weight: bold;
+  font-weight: 600; /* More semantic than bold */
 }
 
+/* Table Styles */
 .table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.95rem;
-  background-color: #e39504; /* main background tone */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border-radius: 10px;
-  overflow: hidden;
 }
 
 .table th,
 .table td {
-  border: 1px solid #eee;
   padding: 0.75rem;
   text-align: left;
-  vertical-align: top;
-  color: #1f2937;
+  border: 1px solid #eee;
 }
 
 .table th {
-  background-color: #f9f9f9;
+  background-color: var(--text-dark);
   font-weight: 600;
-  color: #1f2937;
+  position: sticky;
+  top: 0;
 }
 
+/* Zebra Striping */
 .table tr:nth-child(even) {
-  background-color: #fdf3e0;
+  background-color: var(--text-dark);
+}
+
+/* Hover Effects */
+.table tr {
+  transition: var(--transition);
 }
 
 .table tr:hover {
-  background-color: #fde2b9;
-  transition: background-color 0.2s ease;
+  background-color: var(--text-dark);
 }
 
+/* List Styles */
 .itemsList {
-  list-style: disc;
-  padding-left: 1.2rem;
+  list-style: disc inside; /* Better alignment */
+  padding-left: 0;
   margin: 0;
-  color: #333;
+  color: var(--primary);
 }
 
+/* PDF Button */
 .pdfButton {
-  background: none;
+  background: transparent;
   border: none;
   cursor: pointer;
-  color: #1f2937;
+  color: var(--primary);
   padding: 0.25rem;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: var(--transition);
+  display: inline-flex; /* Better for icons */
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .pdfButton:hover {
-  color: #e53935;
-  transform: scale(1.1);
+  color: var(--error);
+  transform: scale(1.05); /* More subtle scaling */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 0.5rem;
+    margin: 1rem auto;
+  }
+  
+  .table {
+    font-size: 0.85rem;
+  }
+  
+  .table th, 
+  .table td {
+    padding: 0.5rem;
+  }
 }

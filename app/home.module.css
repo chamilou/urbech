@@ -69,6 +69,8 @@
     --carousel-width: 90%;
     --carousel-aspect: 16/9;
     --grid-min-item: 200px;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 }
 

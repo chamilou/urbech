@@ -8,6 +8,7 @@ import Image from "next/image";
 
 export default function HomePage() {
   const [newProducts, setNewProducts] = useState([]);
+  
 
   useEffect(() => {
     const fetchNewProducts = async () => {
@@ -16,11 +17,13 @@ export default function HomePage() {
       const recent = data.filter((p) => p.isNewProduct);
       setNewProducts(recent);
     };
+    
     fetchNewProducts();
   }, []);
-
   return (
+
     <div className={styles.carouselWrapper}>
+    
       <div className={styles.carouselContainer}>
         <Carousel
           showThumbs={false}
@@ -65,11 +68,13 @@ export default function HomePage() {
 
       <h2 className={styles.sectionTitle}>Свежее поступление</h2>
       <div className={styles.productGrid}>
+        
         {newProducts.length > 0 ? (
           newProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))
         ) : (
+        
           <p>No new products available.</p>
         )}
       </div>
