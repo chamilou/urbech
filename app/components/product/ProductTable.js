@@ -23,15 +23,15 @@ export default function ProductTable({ products, onDelete }) {
           <tr key={product.id}>
             <td>
               <Image
-                alt={product.description.slice(0, 10)}
-                src={product.mainImage}
+                alt={product.description||"".slice(0, 10)||"Unknown"}
+                src={product.mainImage||"/placeholder-image.jpg"}
                 width={30}
                 height={30}
               ></Image>
             </td>
             <td>{product.name}</td>
             <td>{product.price}</td>
-            <td>{product.description.slice(0, 9)}</td>
+            <td>{product.description||"".slice(0, 9)}</td>
             <td>{product.stock}</td>
             <td>{product.category?.name || "Uncategorized"}</td>
             <td>

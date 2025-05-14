@@ -1,21 +1,38 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
-
+import prisma from "@/lib/db";
 // GET all partners
+// export async function GET() {
+//   try {
+//     const partners = await prisma.partner.findMany({
+//       select:{id:true, name:true},
+      
+//       orderBy: { createdAt: "desc" },
+//     });
+//     return NextResponse.json({ partners });
+//   } catch (err) {
+//     return NextResponse.json(
+//       { error: "Failed to fetch partners." },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+
+
 export async function GET() {
   try {
     const partners = await prisma.partner.findMany({
-      include: { address: true },
-      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        name: true,
+        type: true
+      },
+      orderBy: { name: 'asc' }
     });
-    return NextResponse.json({ partners });
-  } catch (err) {
-    return NextResponse.json(
-      { error: "Failed to fetch partners." },
-      { status: 500 }
-    );
+    return NextResponse.json(Array.isArray(partners) ? partners : []);
+  } catch (error) {
+    console.error("GET /api/partners error:", error);
+    return NextResponse.json([], { status: 500 });
   }
 }
 
